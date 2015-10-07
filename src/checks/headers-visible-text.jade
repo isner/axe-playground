@@ -1,0 +1,36 @@
+extends ../layout
+
+append title
+  title headers-visible-text
+
+block content
+  h1 headers-visible-text
+
+  h2 Pass
+
+  table
+    thead
+      tr
+        th(scope="col") First
+        th(scope="col") Last
+    tbody
+      tr
+        td Jerry
+        td Seinfeld
+
+  h2 Fail
+
+  table
+    thead
+      tr
+        th(scope="col") First
+        th(scope="col" style="display:none;") Last
+    tbody
+      tr
+        td Jerry
+        td Seinfeld
+
+  code.fail
+
+append bodyScripts
+  script(src="index.js")
