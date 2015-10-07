@@ -1,5 +1,7 @@
 # axe-playground
 
+Place to make fixtures for testing axe rules and checks in isolation.
+
 ## Viewing Existing Examples
 
 1. Clone axe-playground.
