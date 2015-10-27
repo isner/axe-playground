@@ -1,10 +1,10 @@
 extends ../../layout
 
 append title
-  title headers-visible-text
+  title cell-no-header
 
 block heading
-  h1 headers-visible-text
+  h1 cell-no-header
 
 block fixture
 
@@ -23,8 +23,8 @@ block fixture
   table
     thead
       tr
-        th(scope="col") First
-        th(scope="col" style="display:none;") Last
+        td First
+        td Last
     tbody
       tr
         td Jerry

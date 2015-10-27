@@ -61,4 +61,8 @@ gulp.task('build', ['clean'], function () {
   gulp.src('src/**/*.js')
     .pipe(gulp.dest(BUILD_DIR));
 
+  // Copy css to dist
+  gulp.src('src/**/*.css')
+    .pipe(gulp.dest(BUILD_DIR));
+
 });

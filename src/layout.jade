@@ -1,5 +1,6 @@
 doctype html
 html(lang="en")
+
   head
     block title
     script(src="../../axe.min.js")
@@ -7,6 +8,24 @@ html(lang="en")
     block headScripts
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet")
     link(href="../../index.css" rel="stylesheet")
+    link(href="../../simple-grid.css" rel="stylesheet")
+
   body
-    block content
+    main.grid
+      .col-1-1
+        block heading
+
+      .col-1-2
+        h2 Fixture
+        block fixture
+
+      .col-1-2
+        h2 aXe Violations
+        pre#axe-results
+
+        h2.alaska-heading
+          | Alaska Violations
+        pre#alaska-results
+
     block bodyScripts
+    script(src="../../analyze.js")
