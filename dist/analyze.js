@@ -33,7 +33,7 @@ var target = 'main';
 
 axe.a11yCheck(target, axeConfig, function (res) {
   var el = document.querySelector('#axe-results');
-  var str = JSON.stringify(res, null, 2);
+  var str = JSON.stringify(res.violations, null, 2);
   axeRes = str;
   el.innerHTML = safeTags(str);
 });
