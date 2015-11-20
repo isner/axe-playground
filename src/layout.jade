@@ -1,0 +1,21 @@
+doctype html
+html(lang="en")
+
+  head
+    block title
+    script(src="/dist/axe.min.js")
+    block headScripts
+    link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet")
+    link(href="/dist/index.css" rel="stylesheet")
+    link(href="/dist/simple-grid.css" rel="stylesheet")
+
+  body
+    main.grid
+      .col-1-1
+        block heading
+        a(href="/dist/checks/index.html") Go to Homepage
+
+      block content
+
+    block bodyScripts
+    script(src="/dist/analyze.js")

@@ -1,7 +1,7 @@
 {
   "name": "axe-playground",
   "version": "1.0.0",
-  "description": "",
+  "description": "A variety of test fixtures meant to trigger specific aXe violations, organized by check",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

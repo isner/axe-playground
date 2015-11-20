@@ -1,10 +1,10 @@
-extends ../../index
+extends ../layout
 
 append title
-  title headers-visible-text
+  title headers-visible-text | checks | axe-playground
 
 block heading
-  h1 headers-visible-text
+  h1 Checks > headers-visible-text
 
 block fixture
 

@@ -1,0 +1,17 @@
+extends ../layout
+
+append title
+  title home - axe-playground
+  
+block heading
+  h1 aXe Playground
+   
+block content
+  .col-1-1
+    h2 List of Checks
+    
+    //- TODO Have gulp build this list
+    ul
+      li: a(href="cell-no-header/index.html") cell-no-header
+      li: a(href="headers-visible-text/index.html") headers-visible-text
+      li: a(href="th-single-row-column/index.html") th-single-row-column
