@@ -1,6 +1,6 @@
-/* global axe, axeXPath */
+/* global axe */
 
-var axeRes, alaskaRes;
+var axeRes;
 
 /**
  * Define the configuration object.
@@ -28,7 +28,7 @@ axeConfig.runOnly = {
 var target = 'main';
 
 /**
- * Execute axe-core#a11yCheck on the target node.
+ * Execute `#a11yCheck` on the target node.
  */
 
 axe.a11yCheck(target, axeConfig, function (res) {
@@ -36,23 +36,6 @@ axe.a11yCheck(target, axeConfig, function (res) {
   var str = JSON.stringify(res.violations, null, 2);
   axeRes = str;
   el.innerHTML = safeTags(str);
-});
-
-/**
- * Execute alaska's axe version on the target node.
- */
-
-axeXPath.a11yCheckAsString(target, axeConfig, function (res) {
-  var el = document.querySelector('#alaska-results');
-  var heading = document.querySelector('.alaska-heading');
-  var violations = JSON.parse(res).violations;
-  var str = JSON.stringify(violations, null, 2);
-  alaskaRes = str;
-  el.innerHTML = safeTags(str);
-
-  if (isEqual(axeRes, alaskaRes)) {
-    heading.innerHTML += ' (same as aXe)';
-  }
 });
 
 /**
@@ -68,8 +51,4 @@ function safeTags(str) {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
-}
-
-function isEqual(str1, str2) {
-  return str1 == str2;
 }

@@ -4,7 +4,6 @@ html(lang="en")
   head
     block title
     script(src="../../axe.min.js")
-    script(src="../../alaska-a11yjs.min.js")
     block headScripts
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet")
     link(href="../../index.css" rel="stylesheet")
@@ -22,10 +21,6 @@ html(lang="en")
       .col-1-2
         h2 aXe Violations
         pre#axe-results
-
-        h2.alaska-heading
-          | Alaska Violations
-        pre#alaska-results
 
     block bodyScripts
     script(src="../../analyze.js")
