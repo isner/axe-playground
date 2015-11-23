@@ -1,6 +1,8 @@
 doctype html
 html(lang="en")
 
+  block vars
+
   head
     block title
     script(src="/dist/axe.min.js")
@@ -16,6 +18,3 @@ html(lang="en")
         a(href="/dist/checks/index.html") Go to Homepage
 
       block content
-
-    block bodyScripts
-    script(src="/dist/analyze.js")

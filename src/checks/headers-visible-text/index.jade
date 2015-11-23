@@ -1,10 +1,7 @@
 extends ../layout
 
-append title
-  title headers-visible-text | checks | axe-playground
-
-block heading
-  h1 Checks > headers-visible-text
+block vars
+  - var checkName = 'headers-visible-text'
 
 block fixture
 
@@ -29,6 +26,3 @@ block fixture
       tr
         td Jerry
         td Seinfeld
-
-append bodyScripts
-  script(src="index.js")

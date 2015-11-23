@@ -1,10 +1,38 @@
 extends ../layout
 
+append title
+  title #{checkName} | Checks | aXe Playground
+
+block heading
+  h1 Check: #{checkName}
+
 block content
   .col-1-2
-    h2 aXe Violations
-    pre#axe-results
-
-  .col-1-2
+    h2 Configuration
+    p 
+      | You may edit the options object below and re-analyze the fixture to update the results. For more info, see#{' '}
+      a(href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#b-options-parameter") the aXe documentation for the Options parameter
+      | .
+      
+    label(for="config-textarea") Options Object
+    textarea#config-textarea(rows="8")
+    button#analyze(type="button") Analyze
+    
     h2 Fixture
-    block fixture
+    h3 Rendered View
+    p Everything in the area below will be targeted by aXe when you analyze the page.
+    #fixture
+      block fixture
+      
+    h3 Markup
+    textarea#markup(readonly="true")
+    
+  .col-1-2
+    h2 Results
+    
+    h3 Violations Array
+    textarea#axe-results(rows="30" readonly="true")
+
+  script(src="/dist/analyze.js")
+  script.
+    analyze();

@@ -1,42 +1,50 @@
 /* global axe */
 
-var axeRes;
-
 /**
- * Define the configuration object.
- * @type {Object}
+ * Get configuration textarea.
  */
 
-var axeConfig = axeConfig || {};
+var configArea = document.querySelector('#config-textarea');
+var analyzeBtn = document.querySelector('#analyze');
+var fixture = document.querySelector('#fixture');
+var markupArea = document.querySelector('#markup');
+
+analyzeBtn.addEventListener('click', function () {
+  analyze();
+});
 
 /**
- * Extend the configuration object
- * with default values.
+ * Define default configuration object for aXe.
  */
 
-// axeConfig.reporter = 'v1';
-axeConfig.runOnly = {
+var axeConfig = {
   type: 'tag',
   values: ['wcag2a', 'wcag2aa']
 };
 
 /**
- * Specify target css selector.
- * @type {String}
+ * Use default configuration object to populate the configuration textarea.
  */
 
-var target = 'main';
+configArea.value = JSON.stringify(axeConfig, null, 2);
+
+markupArea.value = fixture.innerHTML;
 
 /**
- * Execute `#a11yCheck` on the target node.
+ * Run `#a11yCheck` on the text fixture.
  */
 
-axe.a11yCheck(target, axeConfig, function (res) {
-  var el = document.querySelector('#axe-results');
-  var str = JSON.stringify(res.violations, null, 2);
-  axeRes = str;
-  el.innerHTML = safeTags(str);
-});
+window.analyze = function (target, opts) {
+  var optsVal = configArea.value;
+  opts = opts || JSON.parse(optsVal);
+
+  axe.a11yCheck('#fixture', opts, function (res) {
+    var el = document.querySelector('#axe-results');
+    var str = JSON.stringify(res.violations, null, 2);
+    el.innerHTML = safeTags(str);
+    window.scrollTo(0, 0);
+  });
+};
 
 /**
  * Converts HTML chars for printing in HTML.

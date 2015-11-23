@@ -1,10 +1,7 @@
 extends ../layout
 
-append title
-  title th-single-row-column | checks | axe-playground
-
-block heading
-  h1 Checks > th-single-row-column
+block vars
+  - var checkName = 'th-single-row-column'
 
 block fixture
 
@@ -28,6 +25,3 @@ block fixture
         td 12/03/1983
         td Laure
         td Bordas
-
-append bodyScripts
-  script(src="index.js")
