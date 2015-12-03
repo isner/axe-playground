@@ -25,7 +25,7 @@ block content
       block fixture
       
     h3 Markup
-    textarea#markup(readonly="true")
+    pre#markup.prettyprint(readonly="true")
     
   .col-1-2
     h2 Results
@@ -33,6 +33,6 @@ block content
     h3 Violations Array
     textarea#axe-results(rows="30" readonly="true")
 
-  script(src="/dist/analyze.js")
+  script(src=relPath+"analyze.js")
   script.
     analyze();

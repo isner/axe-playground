@@ -25,12 +25,12 @@ table td {
   visibility: visible !important;
   display: block !important;
 }
-textarea {
+textarea,
+code {
   min-width: 100%;
   max-width: 100%;
   font-family: monospace;
 }
-#markup,
 #axe-results {
   overflow-x: scroll;
   word-wrap: normal;

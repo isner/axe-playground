@@ -5,16 +5,16 @@ html(lang="en")
 
   head
     block title
-    script(src="/dist/axe.min.js")
-    block headScripts
+    script(src=relPath+"axe.min.js")
+    script(src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?autoload=true&amp;skin=sunburst&amp;lang=css" defer="defer")
     link(href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet")
-    link(href="/dist/index.css" rel="stylesheet")
-    link(href="/dist/simple-grid.css" rel="stylesheet")
+    link(href=relPath+"index.css" rel="stylesheet")
+    link(href=relPath+"simple-grid.css" rel="stylesheet")
 
   body
     main.grid
       .col-1-1
         block heading
-        a(href="/dist/checks/index.html") Go to Homepage
+        a(href=relPath+"checks/index.html") Go to Homepage
 
       block content

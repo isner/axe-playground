@@ -1,13 +1,13 @@
 {
   "name": "axe-playground",
-  "version": "1.0.0",
-  "description": "A variety of test fixtures meant to trigger specific aXe violations, organized by check",
+  "version": "1.1.0",
+  "description": "Configure and run aXe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matt Isner <isnerms@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "axe-core": "^1.1.1",
     "fs-extra": "^0.24.0",

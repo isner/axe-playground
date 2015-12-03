@@ -1,5 +1,8 @@
 extends ../layout
 
+append vars
+  - var relPath = '../'
+
 append title
   title home - axe-playground
   
@@ -12,6 +15,6 @@ block content
     
     //- TODO Have gulp build this list
     ul
-      li: a(href="cell-no-header/index.html") cell-no-header
-      li: a(href="headers-visible-text/index.html") headers-visible-text
-      li: a(href="th-single-row-column/index.html") th-single-row-column
+      li: a(href=relPath + "checks/cell-no-header/index.html") cell-no-header
+      li: a(href=relPath + "checks/headers-visible-text/index.html") headers-visible-text
+      li: a(href=relPath + "checks/th-single-row-column/index.html") th-single-row-column

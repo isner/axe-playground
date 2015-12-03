@@ -28,7 +28,7 @@ var axeConfig = {
 
 configArea.value = JSON.stringify(axeConfig, null, 2);
 
-markupArea.value = fixture.innerHTML;
+markupArea.innerHTML = safeTags(fixture.innerHTML);
 
 /**
  * Run `#a11yCheck` on the text fixture.

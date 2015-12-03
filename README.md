@@ -1,16 +1,31 @@
 # axe-playground
 
-Place to make fixtures for testing axe rules and checks in isolation.
+A series of fixtures meant to violate specific [aXe](https://github.com/dequelabs/axe-core) checks. Supports modification of aXe configuration and re-analysis on the fly.
 
-## Viewing Existing Examples
+## Directions
 
-1. Clone axe-playground.
-2. Open `/dist/checks/{check-name}/index.html` in your browser.
+Clone the project using
+
+```bash
+$ git clone git@github.com:isner/axe-playground.git
+```
+
+then open `/dist/checks/index.html` in your browser.
 
 ## Adding an Example
 
-1. Clone axe-playground.
-2. Move to project directory (`$ cd axe-playground`).
-3. Install dependencies (`$ npm i`).
-4. Create a new jade fixture in `/src`. It should extend `/src/index.jade`.
-5. Rebuild all fixtures (`$ gulp`).
+Clone and install the project dependencies using
+
+```bash
+$ git clone git@github.com:isner/axe-playground.git
+$ cd axe-playground
+$ npm i
+```
+
+then create or modify jade fixtures in `/src`. The jade templates should extend `/src/index.jade`.
+
+Rebuild using
+
+```bash
+$ gulp
+```
