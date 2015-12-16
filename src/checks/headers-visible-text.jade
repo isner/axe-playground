@@ -1,8 +1,9 @@
-extends ../layout
+extends ../fiddle-view
 
 append vars
-  - var checkName = 'cell-no-header'
-  - var relPath = '../../'
+  - var type = 'Check'
+  - var name = 'headers-visible-text'
+  - var relPath = '../'
 
 block fixture
 
@@ -21,8 +22,8 @@ block fixture
   table
     thead
       tr
-        td First
-        td Last
+        th(scope="col") First
+        th(scope="col" style="display:none;") Last
     tbody
       tr
         td Jerry

@@ -1,10 +1,10 @@
-extends ../layout
+extends layout
 
 append title
-  title #{checkName} | Checks | aXe Playground
+  title #{name} | #{type} | #{siteName}
 
 block heading
-  h1 Check: #{checkName}
+  h1 #{type}: #{name}
 
 block content
   .col-1-2

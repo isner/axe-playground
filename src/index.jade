@@ -1,0 +1,26 @@
+extends layout
+
+append vars
+  - var relPath = ''
+
+append title
+  title home | #{siteName}
+  
+block heading
+  h1 aXe Playground
+   
+block content
+  .col-1-1
+    //- TODO Have gulp build these lists
+    
+    h2 List of Rules
+    
+    ul
+      li: a(href=relPath + "rules/accesskeys.html") accesskeys
+
+    h2 List of Checks
+    
+    ul
+      li: a(href=relPath + "checks/cell-no-header.html") cell-no-header
+      li: a(href=relPath + "checks/headers-visible-text.html") headers-visible-text
+      li: a(href=relPath + "checks/th-single-row-column.html") th-single-row-column

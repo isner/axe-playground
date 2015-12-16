@@ -1,0 +1,19 @@
+extends ../fiddle-view
+
+append vars
+  - var type = 'Rule'
+  - var name = 'accesskeys'
+  - var relPath = '../'
+
+block fixture
+
+  div
+    label
+      span N<u>a</u>me
+      input(type="text" name="name" accesskey="a")
+  div
+    label
+      span <u>E</u>mail
+      input(type="email" name="email" accesskey="e")
+  div
+    button(accesskey="a") C<u>a</u>ncel
