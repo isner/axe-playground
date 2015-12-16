@@ -56,4 +56,8 @@ gulp.task('build', ['clean'], function () {
   gulp.src('src/**/*.css')
     .pipe(gulp.dest(BUILD_DIR));
 
+  // Copy images to dist
+  gulp.src('images/*.*')
+    .pipe(gulp.dest(BUILD_DIR));
+
 });
