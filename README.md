@@ -1,6 +1,6 @@
 # axe-playground
 
-A series of fixtures meant to violate specific [aXe](https://github.com/dequelabs/axe-core) checks. Supports modification of aXe configuration and re-analysis on the fly.
+A series of fixtures meant to violate specific [aXe](https://github.com/dequelabs/axe-core) rules and checks. Supports modification of aXe configuration and re-analysis on the fly.
 
 ## Directions
 
@@ -10,7 +10,7 @@ Clone the project using
 $ git clone git@github.com:isner/axe-playground.git
 ```
 
-then open `/dist/checks/index.html` in your browser.
+then open `/dist/index.html` in your browser.
 
 ## Adding an Example
 
@@ -22,7 +22,7 @@ $ cd axe-playground
 $ npm i
 ```
 
-then create or modify jade fixtures in `/src`. The jade templates should extend `/src/index.jade`.
+then create or modify jade fixtures in `/src`. The jade templates should extend `/src/fiddle-view.jade`.
 
 Rebuild using
 
