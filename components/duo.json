@@ -2,7 +2,7 @@
   "lib/index.js": {
     "id": "lib/index.js",
     "type": "js",
-    "mtime": 1450389603000,
+    "mtime": 1450389812000,
     "src": "\n/**\n * Dependencies.\n */\n\nvar classes = require('component/classes');\nvar query = require('component/query');\n\n/**\n * Constants.\n */\n\nvar RULES = 'examples/rules/';\nvar CHECKS = 'examples/checks/';\nvar HIDDEN_CLASS = 'hidden';\n\n/**\n * Element references.\n */\n\nvar fixture = query('#fixture');\nvar typeRadios = query.all('input[name=\"type\"]');\nvar ruleTypeRadio = query('#rule-type');\nvar checkTypeRadio = query('#check-type');\nvar presetAreas = query.all('.presets');\nvar ruleSelect = query('#rule-presets');\nvar checkSelect = query('#check-presets');\nvar applyPresetBtn = query('#apply-preset');\nvar markupArea = query('#markup');\nvar renderBtn = query('#render');\nvar configArea = query('#config-textarea');\nvar analyzeBtn = query('#analyze');\nvar fixture = query('#fixture');\nvar resultsTextbox = query('#axe-results');\n\n/**\n * Initialize state variables.\n */\n\nvar selectedType = 'rule';\n\n/**\n * Map example snippets to fixture presets.\n */\n\nvar examples = {\n  rule: {\n    'accesskeys': require('../examples/rules/accesskeys.html'),\n    'area-alt': require('../examples/rules/area-alt.html')\n  },\n  check: {\n    'cell-no-header': require('../examples/checks/cell-no-header.html'),\n    'headers-visible-text': require('../examples/checks/headers-visible-text.html'),\n    'th-single-row-column': require('../examples/checks/th-single-row-column.html')\n  }\n};\n\n/**\n * 'change' events on the 'Type' radios toggle\n * the corresponding 'Name' select lists.\n */\n\n[].slice.call(typeRadios).forEach(function (radio) {\n  radio.addEventListener('change', function (e) {\n    [].slice.call(presetAreas).forEach(function (area) {\n      classes(area).add(HIDDEN_CLASS);\n    });\n    var val;\n    if (ruleTypeRadio.checked) {\n      selectedType = 'rule';\n    } else if (checkTypeRadio.checked) {\n      selectedType = 'check';\n    }\n    var area = query('.presets.' + selectedType);\n    classes(area).remove(HIDDEN_CLASS);\n  });\n});\n\n/**\n * Clicks on the 'Apply Preset' button re-render the fixture\n * and update the HTML view.\n */\n\napplyPresetBtn.addEventListener('click', function () {\n  var selectEl = selectedType == 'check' ? checkSelect : ruleSelect;\n  var val = selectEl.value;\n  fixture.innerHTML = examples[selectedType][val];\n  markupArea.innerHTML = safeTags(fixture.innerHTML);\n  analyze();\n});\n\n/**\n * Clicks on the 'Render' button render the fixture\n * using the current value of the 'Edit HTML' field.\n */\n\nrenderBtn.addEventListener('click', function () {\n  var html = markupArea.value;\n  fixture.innerHTML = html;\n  analyze();\n});\n\n/**\n * Clicks on the 'Analyze' button run aXe on the existing fixture.\n */\n\nanalyzeBtn.addEventListener('click', function () {\n  analyze();\n});\n\n/**\n * Set and apply default aXe options.\n */\n\nvar defaultOpts = {\n  type: 'tag',\n  values: ['wcag2a', 'wcag2aa']\n};\n\nconfigArea.value = JSON.stringify(defaultOpts, null, 2);\n\n/**\n * Apply default values to HTML and Render Fixture areas.\n */\n\nfixture.innerHTML = examples.rule.accesskeys;\nmarkupArea.innerHTML = safeTags(fixture.innerHTML);\n\n/**\n * Run `#a11yCheck` on the text fixture.\n */\n\nwindow.analyze = function (target, opts) {\n  var optsVal = configArea.value;\n  opts = opts || JSON.parse(optsVal);\n\n  axe.a11yCheck('#fixture', opts, function (res) {\n    var str = JSON.stringify(res.violations, null, 2);\n    resultsTextbox.innerHTML = safeTags(str);\n    window.scrollTo(0, 0);\n  });\n};\n\n/**\n * Converts HTML chars for printing in HTML.\n *\n * @param {String} str\n * @return {String}\n * @api private\n */\n\nfunction safeTags(str) {\n  return str\n    .replace(/&/g, '&amp;')\n    .replace(/</g, '&lt;')\n    .replace(/>/g, '&gt;');\n}\n",
     "deps": {
       "component/classes": "components/component-classes@1.2.4/index.js",
@@ -18,49 +18,49 @@
   "examples/rules/accesskeys.html": {
     "id": "examples/rules/accesskeys.html",
     "type": "js",
-    "mtime": 1450298126000,
+    "mtime": 1450389812000,
     "src": "module.exports = '\\n<div>\\n  <div>\\n    <label>\\n      <span>N<u>a</u>me</span>\\n      <input type=\"text\" name=\"name\" accesskey=\"a\" />\\n    </label>\\n  <div>\\n    <label>\\n      <span><u>E</u>mail</span>\\n      <input type=\"email\" name=\"email\" accesskey=\"e\" />\\n    </label>\\n  </div>\\n  <div>\\n    <button accesskey=\"a\">C<u>a</u>ncel</button>\\n  </div>\\n</div>\\n';",
     "deps": {}
   },
   "examples/checks/cell-no-header.html": {
     "id": "examples/checks/cell-no-header.html",
     "type": "js",
-    "mtime": 1450366341000,
+    "mtime": 1450389812000,
     "src": "module.exports = '\\n<div>\\n\\n  <h3>Pass</h3>\\n  <table>\\n    <thead>\\n      <tr>\\n        <th scope=\"col\">First</th>\\n        <th scope=\"col\">Last</th>\\n      </tr>\\n    </thead>\\n    <tbody>\\n      <tr>\\n        <td>Jerry</td>\\n        <td>Seinfeld</td>\\n      </tr>\\n    </tbody>\\n  </table>\\n\\n  <h3>Fail</h3>\\n  <table>\\n    <thead>\\n      <tr>\\n        <td>First</td>\\n        <td>Last</td>\\n      </tr>\\n    </thead>\\n    <tbody>\\n      <tr>\\n        <td>Jerry</td>\\n        <td>Seinfeld</td>\\n      </tr>\\n    </tbody>\\n  </table>\\n\\n</div>\\n';",
     "deps": {}
   },
   "examples/checks/th-single-row-column.html": {
     "id": "examples/checks/th-single-row-column.html",
     "type": "js",
-    "mtime": 1450366693000,
+    "mtime": 1450389812000,
     "src": "module.exports = '\\n<div>\\n\\n  <table>\\n    <thead>\\n      <tr>\\n        <th scope=\"col\" rowspan=\"2\">ID</th>\\n        <th scope=\"col\" rowspan=\"2\">DOB</th>\\n        <th scope=\"col\">First</th>\\n        <th scope=\"col\">Last</th>\\n      </tr>\\n      <tr>\\n        <th scope=\"col\" colspan=\"2\">Name</th>\\n      </tr>\\n    </thead>\\n    <tbody>\\n      <tr>\\n        <td>1</th>\\n        <td>04/13/1949</th>\\n        <td>Christopher</th>\\n        <td>Hitchens</th>\\n      </tr>\\n      <tr>\\n        <td>2</th>\\n        <td>04/09/1967</th>\\n        <td>Sam</th>\\n        <td>Harris</th>\\n      </tr>\\n    </tbody>\\n  </table>\\n\\n</div>\\n';",
     "deps": {}
   },
   "examples/rules/area-alt.html": {
     "id": "examples/rules/area-alt.html",
     "type": "js",
-    "mtime": 1450365636000,
+    "mtime": 1450389812000,
     "src": "module.exports = '\\n<div>\\n  <img src=\"../solar-system.jpg\" alt=\"Solar System\" width=\"472\" height=\"800\"\\n  usemap=\"#map\">\\n\\n  <map id=\"map\" name=\"map\">\\n    <!-- Missing alt on this tag -->\\n    <area shape=\"rect\" coords=\"115,158,276,192\"\\n    href=\"http://en.wikipedia.org/wiki/Mercury_%28planet%29\" alt=\"Mercury\">\\n    <area shape=\"rect\" coords=\"115,193,276,234\"\\n    href=\"http://en.wikipedia.org/wiki/Venus\" alt=\"Venus\">\\n    <area shape=\"rect\" coords=\"118,235,273,280\"\\n    href=\"http://en.wikipedia.org/wiki/Earth\">\\n    <area shape=\"rect\" coords=\"119,280,272,323\"\\n    href=\"http://en.wikipedia.org/wiki/Mars\" alt=\"Mars\">\\n    <area shape=\"rect\" coords=\"119,324,322,455\"\\n    href=\"http://en.wikipedia.org/wiki/Jupiter\" alt=\"Jupiter\">\\n    <area shape=\"rect\" coords=\"118,457,352,605\"\\n    href=\"http://en.wikipedia.org/wiki/Saturn\" alt=\"Saturn\">\\n    <area shape=\"rect\" coords=\"119,606,308,666\"\\n    href=\"http://en.wikipedia.org/wiki/Uranus\" alt=\"Uranus\">\\n    <area shape=\"rect\" coords=\"117,664,305,732\"\\n    href=\"http://en.wikipedia.org/wiki/Neptune\" alt=\"Neptune\">\\n  </map>\\n</div>\\n';",
     "deps": {}
   },
   "examples/checks/headers-visible-text.html": {
     "id": "examples/checks/headers-visible-text.html",
     "type": "js",
-    "mtime": 1450366431000,
+    "mtime": 1450389812000,
     "src": "module.exports = '\\n<div>\\n\\n  <h3>Pass</h3>\\n  <table>\\n    <thead>\\n      <tr>\\n        <th scope=\"col\">First</th>\\n        <th scope=\"col\">Last</th>\\n      </tr>\\n    </thead>\\n    <tbody>\\n      <tr>\\n        <td>Jerry</td>\\n        <td>Seinfeld</td>\\n      </tr>\\n    </tbody>\\n  </table>\\n\\n  <h3>Fail</h3>\\n  <table>\\n    <thead>\\n      <tr>\\n        <th scope=\"col\">First</th>\\n        <th scope=\"col\" style=\"display: none;\">Last</th>\\n      </tr>\\n    </thead>\\n    <tbody>\\n      <tr>\\n        <td>Jerry</td>\\n        <td>Seinfeld</td>\\n      </tr>\\n    </tbody>\\n  </table>\\n\\n</div>\\n';",
     "deps": {}
   },
   "components/component-query@0.0.3/index.js": {
     "id": "components/component-query@0.0.3/index.js",
     "type": "js",
-    "mtime": 1392070210000,
+    "mtime": 1450389812000,
     "src": "function one(selector, el) {\n  return el.querySelector(selector);\n}\n\nexports = module.exports = function(selector, el){\n  el = el || document;\n  return one(selector, el);\n};\n\nexports.all = function(selector, el){\n  el = el || document;\n  return el.querySelectorAll(selector);\n};\n\nexports.engine = function(obj){\n  if (!obj.one) throw new Error('.one callback required');\n  if (!obj.all) throw new Error('.all callback required');\n  one = obj.one;\n  exports.all = obj.all;\n  return exports;\n};\n",
     "deps": {}
   },
   "components/component-classes@1.2.4/index.js": {
     "id": "components/component-classes@1.2.4/index.js",
     "type": "js",
-    "mtime": 1426632039000,
+    "mtime": 1450389812000,
     "src": "/**\n * Module dependencies.\n */\n\nvar index = require('indexof');\n\n/**\n * Whitespace regexp.\n */\n\nvar re = /\\s+/;\n\n/**\n * toString reference.\n */\n\nvar toString = Object.prototype.toString;\n\n/**\n * Wrap `el` in a `ClassList`.\n *\n * @param {Element} el\n * @return {ClassList}\n * @api public\n */\n\nmodule.exports = function(el){\n  return new ClassList(el);\n};\n\n/**\n * Initialize a new ClassList for `el`.\n *\n * @param {Element} el\n * @api private\n */\n\nfunction ClassList(el) {\n  if (!el || !el.nodeType) {\n    throw new Error('A DOM element reference is required');\n  }\n  this.el = el;\n  this.list = el.classList;\n}\n\n/**\n * Add class `name` if not already present.\n *\n * @param {String} name\n * @return {ClassList}\n * @api public\n */\n\nClassList.prototype.add = function(name){\n  // classList\n  if (this.list) {\n    this.list.add(name);\n    return this;\n  }\n\n  // fallback\n  var arr = this.array();\n  var i = index(arr, name);\n  if (!~i) arr.push(name);\n  this.el.className = arr.join(' ');\n  return this;\n};\n\n/**\n * Remove class `name` when present, or\n * pass a regular expression to remove\n * any which match.\n *\n * @param {String|RegExp} name\n * @return {ClassList}\n * @api public\n */\n\nClassList.prototype.remove = function(name){\n  if ('[object RegExp]' == toString.call(name)) {\n    return this.removeMatching(name);\n  }\n\n  // classList\n  if (this.list) {\n    this.list.remove(name);\n    return this;\n  }\n\n  // fallback\n  var arr = this.array();\n  var i = index(arr, name);\n  if (~i) arr.splice(i, 1);\n  this.el.className = arr.join(' ');\n  return this;\n};\n\n/**\n * Remove all classes matching `re`.\n *\n * @param {RegExp} re\n * @return {ClassList}\n * @api private\n */\n\nClassList.prototype.removeMatching = function(re){\n  var arr = this.array();\n  for (var i = 0; i < arr.length; i++) {\n    if (re.test(arr[i])) {\n      this.remove(arr[i]);\n    }\n  }\n  return this;\n};\n\n/**\n * Toggle class `name`, can force state via `force`.\n *\n * For browsers that support classList, but do not support `force` yet,\n * the mistake will be detected and corrected.\n *\n * @param {String} name\n * @param {Boolean} force\n * @return {ClassList}\n * @api public\n */\n\nClassList.prototype.toggle = function(name, force){\n  // classList\n  if (this.list) {\n    if (\"undefined\" !== typeof force) {\n      if (force !== this.list.toggle(name, force)) {\n        this.list.toggle(name); // toggle again to correct\n      }\n    } else {\n      this.list.toggle(name);\n    }\n    return this;\n  }\n\n  // fallback\n  if (\"undefined\" !== typeof force) {\n    if (!force) {\n      this.remove(name);\n    } else {\n      this.add(name);\n    }\n  } else {\n    if (this.has(name)) {\n      this.remove(name);\n    } else {\n      this.add(name);\n    }\n  }\n\n  return this;\n};\n\n/**\n * Return an array of classes.\n *\n * @return {Array}\n * @api public\n */\n\nClassList.prototype.array = function(){\n  var className = this.el.getAttribute('class') || '';\n  var str = className.replace(/^\\s+|\\s+$/g, '');\n  var arr = str.split(re);\n  if ('' === arr[0]) arr.shift();\n  return arr;\n};\n\n/**\n * Check if class `name` is present.\n *\n * @param {String} name\n * @return {ClassList}\n * @api public\n */\n\nClassList.prototype.has =\nClassList.prototype.contains = function(name){\n  return this.list\n    ? this.list.contains(name)\n    : !! ~index(this.array(), name);\n};\n",
     "deps": {
       "indexof": "components/component-indexof@0.0.3/index.js"
@@ -69,7 +69,7 @@
   "components/component-indexof@0.0.3/index.js": {
     "id": "components/component-indexof@0.0.3/index.js",
     "type": "js",
-    "mtime": 1392082405000,
+    "mtime": 1450389812000,
     "src": "module.exports = function(arr, obj){\n  if (arr.indexOf) return arr.indexOf(obj);\n  for (var i = 0; i < arr.length; ++i) {\n    if (arr[i] === obj) return i;\n  }\n  return -1;\n};",
     "deps": {}
   }
