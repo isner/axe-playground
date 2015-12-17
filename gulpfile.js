@@ -5,6 +5,7 @@
 
 var stylus = require('gulp-stylus');
 var jade = require('gulp-jade');
+var duo = require('gulp-duojs');
 var fs = require('fs-extra');
 var path = require('path');
 var gulp = require('gulp');
@@ -24,7 +25,11 @@ var BUILD_DIR = 'dist';
 gulp.task('default', ['build']);
 
 gulp.task('watch', function () {
-  gulp.watch('src/**/*', ['default']);
+  gulp.watch('examples/**/*', ['default']);
+  gulp.watch('images/**/*', ['default']);
+  gulp.watch('lib/**/*', ['default']);
+  gulp.watch('styles/**/*', ['default']);
+  gulp.watch('views/**/*', ['default']);
 });
 
 gulp.task('clean', function () {
@@ -38,22 +43,32 @@ gulp.task('build', ['clean'], function () {
   var axeDest = path.join(BUILD_DIR, AXE_FILE);
   fs.copySync(axeSrc, axeDest);
 
-  // Render jade files
-  gulp.src('src/**/*.jade')
+  // Render views
+  gulp.src('views/**/*.jade')
     .pipe(jade())
     .pipe(gulp.dest(BUILD_DIR));
 
+  // Render example jade snippets
+  gulp.src('examples/**/*.jade')
+    .pipe(jade())
+    .pipe(gulp.dest(BUILD_DIR));
+
+  // Copy example html snippets
+  gulp.src('examples/**/*.html')
+    .pipe(gulp.dest(BUILD_DIR));
+
+  // Build client scripts
+  gulp.src('lib/**/*.js')
+    .pipe(duo())
+    .pipe(gulp.dest(BUILD_DIR));
+
   // Compile stylus files
-  gulp.src('src/**/*.styl')
+  gulp.src('styles/**/*.styl')
     .pipe(stylus())
     .pipe(gulp.dest(BUILD_DIR));
 
-  // Copy js to dist
-  gulp.src('src/**/*.js')
-    .pipe(gulp.dest(BUILD_DIR));
-
   // Copy css to dist
-  gulp.src('src/**/*.css')
+  gulp.src('styles/**/*.css')
     .pipe(gulp.dest(BUILD_DIR));
 
   // Copy images to dist
