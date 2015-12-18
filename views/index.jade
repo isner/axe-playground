@@ -2,9 +2,8 @@ extends layout
 
 block content
   .col-1-2
-    h2 Fixture Configuration
-    p Start by setting up your fixture. To use a preset fixture, choose a 'Type' then the 'Name' of a specific rule or check.
-    p You can also modify the HTML manually. Click 'Render' to update the fixture.
+    h2 Choose a Preset Fixture
+    p Start by choosing a preset fixture. Choose the 'Type' and 'Name' of a specific rule or check you like to test.
     
     .col-1-2
       fieldset
@@ -32,32 +31,33 @@ block content
               option(value="cell-no-header") cell-no-header
               option(value="headers-visible-text") headers-visible-text
               option(value="th-single-row-column") th-single-row-column
-    .col-1-1  
-      button#apply-preset.right Apply Preset and Analyze
+              
+    p.clear
+    button#apply-preset Apply Preset Fixture
       
-    .col-1-1
-      fieldset
-        legend#edit-html-legend Edit HTML
-        textarea#markup.prettyprint(aria-labelledby="edit-html-legend" rows="10")
-        button#render.right Render Markup and Analyze
+    h2 Edit the Fixture
+    p You can edit the markup of the fixture below. This can be useful to test whether minor adjustments to the given markup will satisfy the aXe tool's rules.
+    
+    label#edit-html-legend(for="markup") Edit HTML
+    textarea#markup.prettyprint(rows="10")
+    button#render Render Markup
 
-    .col-1-1
-      h2 Rendered Fixture
-      p Everything in the area below will be targeted by aXe when you analyze the page.
-      #fixture
-        block fixture
+    h2 View the Rendered Fixture
+    p Everything in the area below will be targeted by aXe when you analyze the page.
+    #fixture
+      block fixture
         
   .col-1-2
-    h2 aXe Options
+    h2 Modify the aXe Options
     p 
       | Modify the options object below and click 'Analyze' to update the results. For more info, see#{' '}
       a(href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#b-options-parameter") the aXe documentation for the Options parameter
       | .      
     label(for="config-textarea") Edit Options
     textarea#config-textarea(rows="8")
-    button#analyze.right Analyze
+    button#analyze Analyze
     
-    h2 aXe Results
+    h2 View the aXe Results
     
     label(for="axe-results") Violations Array
     textarea#axe-results(rows="30" readonly="true")

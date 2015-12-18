@@ -28,6 +28,11 @@ table td {
 .right {
   float: right;
 }
+.clear {
+  clear: both;
+  content: '';
+  display: table;
+}
 textarea,
 code {
   min-width: 100%;

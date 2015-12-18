@@ -177,8 +177,8 @@ applyPresetBtn.addEventListener('click', function () {
   var selectEl = selectedType == 'check' ? checkSelect : ruleSelect;
   var val = selectEl.value;
   fixture.innerHTML = examples[selectedType][val];
-  markupArea.innerHTML = safeTags(fixture.innerHTML);
-  analyze();
+  markupArea.value = fixture.innerHTML;
+  // markupArea.innerHTML = safeTags(fixture.innerHTML);
 });
 
 /**
@@ -189,7 +189,6 @@ applyPresetBtn.addEventListener('click', function () {
 renderBtn.addEventListener('click', function () {
   var html = markupArea.value;
   fixture.innerHTML = html;
-  analyze();
 });
 
 /**
@@ -473,7 +472,7 @@ exports.engine = function(obj){
 
 }, {}],
 4: [function(require, module, exports) {
-module.exports = '\n<div>\n  <div>\n    <label>\n      <span>N<u>a</u>me</span>\n      <input type="text" name="name" accesskey="a" />\n    </label>\n  <div>\n    <label>\n      <span><u>E</u>mail</span>\n      <input type="email" name="email" accesskey="e" />\n    </label>\n  </div>\n  <div>\n    <button accesskey="a">C<u>a</u>ncel</button>\n  </div>\n</div>\n';
+module.exports = '\n<div>\n  <div>\n    <label>\n      <span>N<u>a</u>me</span>\n      <input type="text" name="name" accesskey="a" />\n    </label>\n  </div>\n  <div>\n    <label>\n      <span><u>E</u>mail</span>\n      <input type="email" name="email" accesskey="e" />\n    </label>\n  </div>\n  <div>\n    <button accesskey="a">C<u>a</u>ncel</button>\n  </div>\n</div>\n';
 }, {}],
 5: [function(require, module, exports) {
 module.exports = '\n<div>\n  <img src="solar-system.jpg" alt="Solar System" width="472" height="800"\n  usemap="#map">\n\n  <map id="map" name="map">\n    <area shape="rect" coords="115,158,276,192"\n    href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n    <area shape="rect" coords="115,193,276,234"\n    href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n    <!-- Missing alt on this tag -->\n    <area shape="rect" coords="118,235,273,280"\n    href="http://en.wikipedia.org/wiki/Earth">\n    <area shape="rect" coords="119,280,272,323"\n    href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n    <area shape="rect" coords="119,324,322,455"\n    href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n    <area shape="rect" coords="118,457,352,605"\n    href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n    <area shape="rect" coords="119,606,308,666"\n    href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n    <area shape="rect" coords="117,664,305,732"\n    href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n  </map>\n</div>\n';
