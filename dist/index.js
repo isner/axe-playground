@@ -138,7 +138,10 @@ var selectedType = 'rule';
 var examples = {
   rule: {
     'accesskeys': require('../examples/rules/accesskeys.html'),
-    'area-alt': require('../examples/rules/area-alt.html')
+    'area-alt': require('../examples/rules/area-alt.html'),
+    'aria-allowed-attr': require('../examples/rules/aria-allowed-attr.html'),
+    'aria-required-attr': require('../examples/rules/aria-required-attr.html'),
+    'aria-required-children': require('../examples/rules/aria-required-children.html')
   },
   check: {
     'cell-no-header': require('../examples/checks/cell-no-header.html'),
@@ -247,7 +250,7 @@ function safeTags(str) {
     .replace(/>/g, '&gt;');
 }
 
-}, {"component/classes":2,"component/query":3,"../examples/rules/accesskeys.html":4,"../examples/rules/area-alt.html":5,"../examples/checks/cell-no-header.html":6,"../examples/checks/headers-visible-text.html":7,"../examples/checks/th-single-row-column.html":8}],
+}, {"component/classes":2,"component/query":3,"../examples/rules/accesskeys.html":4,"../examples/rules/area-alt.html":5,"../examples/rules/aria-allowed-attr.html":6,"../examples/rules/aria-required-attr.html":7,"../examples/rules/aria-required-children.html":8,"../examples/checks/cell-no-header.html":9,"../examples/checks/headers-visible-text.html":10,"../examples/checks/th-single-row-column.html":11}],
 2: [function(require, module, exports) {
 /**
  * Module dependencies.
@@ -437,8 +440,8 @@ ClassList.prototype.contains = function(name){
     : !! ~index(this.array(), name);
 };
 
-}, {"indexof":9}],
-9: [function(require, module, exports) {
+}, {"indexof":12}],
+12: [function(require, module, exports) {
 module.exports = function(arr, obj){
   if (arr.indexOf) return arr.indexOf(obj);
   for (var i = 0; i < arr.length; ++i) {
@@ -472,17 +475,26 @@ exports.engine = function(obj){
 
 }, {}],
 4: [function(require, module, exports) {
-module.exports = '\n<div>\n  <div>\n    <label>\n      <span>N<u>a</u>me</span>\n      <input type="text" name="name" accesskey="a" />\n    </label>\n  </div>\n  <div>\n    <label>\n      <span><u>E</u>mail</span>\n      <input type="email" name="email" accesskey="e" />\n    </label>\n  </div>\n  <div>\n    <button accesskey="a">C<u>a</u>ncel</button>\n  </div>\n</div>\n';
+module.exports = '<div>\n  <label>\n    <span>N<u>a</u>me</span>\n    <input type="text" name="name" accesskey="a" />\n  </label>\n</div>\n<div>\n  <label>\n    <span><u>E</u>mail</span>\n    <input type="email" name="email" accesskey="e" />\n  </label>\n</div>\n<div>\n  <button accesskey="a">C<u>a</u>ncel</button>\n</div>\n';
 }, {}],
 5: [function(require, module, exports) {
-module.exports = '\n<div>\n  <img src="solar-system.jpg" alt="Solar System" width="472" height="800"\n  usemap="#map">\n\n  <map id="map" name="map">\n    <area shape="rect" coords="115,158,276,192"\n    href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n    <area shape="rect" coords="115,193,276,234"\n    href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n    <!-- Missing alt on this tag -->\n    <area shape="rect" coords="118,235,273,280"\n    href="http://en.wikipedia.org/wiki/Earth">\n    <area shape="rect" coords="119,280,272,323"\n    href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n    <area shape="rect" coords="119,324,322,455"\n    href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n    <area shape="rect" coords="118,457,352,605"\n    href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n    <area shape="rect" coords="119,606,308,666"\n    href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n    <area shape="rect" coords="117,664,305,732"\n    href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n  </map>\n</div>\n';
+module.exports = '<img src="solar-system.jpg" alt="Solar System" width="472" height="800"\nusemap="#map">\n<map id="map" name="map">\n  <area shape="rect" coords="115,158,276,192"\n  href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n  <area shape="rect" coords="115,193,276,234"\n  href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n  <area shape="rect" coords="118,235,273,280"\n  href="http://en.wikipedia.org/wiki/Earth">\n  <area shape="rect" coords="119,280,272,323"\n  href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n  <area shape="rect" coords="119,324,322,455"\n  href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n  <area shape="rect" coords="118,457,352,605"\n  href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n  <area shape="rect" coords="119,606,308,666"\n  href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n  <area shape="rect" coords="117,664,305,732"\n  href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n</map>\n';
 }, {}],
 6: [function(require, module, exports) {
-module.exports = '\n<div>\n\n  <h3>Pass</h3>\n  <table>\n    <thead>\n      <tr>\n        <th scope="col">First</th>\n        <th scope="col">Last</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <h3>Fail</h3>\n  <table>\n    <thead>\n      <tr>\n        <td>First</td>\n        <td>Last</td>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n</div>\n';
+module.exports = '<label>\n  <span>Name</span>\n  <input type="text" aria-expanded="false">\n</label>\n';
 }, {}],
 7: [function(require, module, exports) {
-module.exports = '\n<div>\n\n  <h3>Pass</h3>\n  <table>\n    <thead>\n      <tr>\n        <th scope="col">First</th>\n        <th scope="col">Last</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <h3>Fail</h3>\n  <table>\n    <thead>\n      <tr>\n        <th scope="col">First</th>\n        <th scope="col" style="display: none;">Last</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n</div>\n';
+module.exports = '<label>\n  <span>Name</span>\n  <input type="text" role="combobox">\n</label>\n';
 }, {}],
 8: [function(require, module, exports) {
+module.exports = '<div role="list">\n  <div>One</div>\n  <div>Two</div>\n</div>\n';
+}, {}],
+9: [function(require, module, exports) {
+module.exports = '\n<div>\n\n  <h3>Pass</h3>\n  <table>\n    <thead>\n      <tr>\n        <th scope="col">First</th>\n        <th scope="col">Last</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <h3>Fail</h3>\n  <table>\n    <thead>\n      <tr>\n        <td>First</td>\n        <td>Last</td>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n</div>\n';
+}, {}],
+10: [function(require, module, exports) {
+module.exports = '\n<div>\n\n  <h3>Pass</h3>\n  <table>\n    <thead>\n      <tr>\n        <th scope="col">First</th>\n        <th scope="col">Last</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n  <h3>Fail</h3>\n  <table>\n    <thead>\n      <tr>\n        <th scope="col">First</th>\n        <th scope="col" style="display: none;">Last</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>Jerry</td>\n        <td>Seinfeld</td>\n      </tr>\n    </tbody>\n  </table>\n\n</div>\n';
+}, {}],
+11: [function(require, module, exports) {
 module.exports = '\n<div>\n\n  <table>\n    <thead>\n      <tr>\n        <th scope="col" rowspan="2">ID</th>\n        <th scope="col" rowspan="2">DOB</th>\n        <th scope="col">First</th>\n        <th scope="col">Last</th>\n      </tr>\n      <tr>\n        <th scope="col" colspan="2">Name</th>\n      </tr>\n    </thead>\n    <tbody>\n      <tr>\n        <td>1</th>\n        <td>04/13/1949</th>\n        <td>Christopher</th>\n        <td>Hitchens</th>\n      </tr>\n      <tr>\n        <td>2</th>\n        <td>04/09/1967</th>\n        <td>Sam</th>\n        <td>Harris</th>\n      </tr>\n    </tbody>\n  </table>\n\n</div>\n';
 }, {}]}, {}, {"1":""})
