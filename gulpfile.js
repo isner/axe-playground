@@ -10,6 +10,9 @@ var fs = require('fs-extra');
 var path = require('path');
 var gulp = require('gulp');
 
+var rules = require('./lib/rules');
+var checks = require('./lib/checks');
+
 /**
  * Define constants.
  */
@@ -45,7 +48,12 @@ gulp.task('build', ['clean'], function () {
 
   // Render views
   gulp.src('views/**/*.jade')
-    .pipe(jade())
+    .pipe(jade({
+      locals: {
+        rules: rules,
+        checks: checks
+      }
+    }))
     .pipe(gulp.dest(BUILD_DIR));
 
   // Render example jade snippets

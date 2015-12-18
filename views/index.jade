@@ -23,17 +23,14 @@ block content
         .presets.rule
           div
             select#rule-presets(labelledby="name-legend")
-              option(value="accesskeys") accesskeys
-              option(value="area-alt") area-alt
-              option(value="aria-allowed-attr") aria-allowed-attr
-              option(value="aria-required-attr") aria-required-attr
-              option(value="aria-required-children") aria-required-children
+              each name in rules
+                option(value="#{name}") #{name}
         .presets.check.hidden
           div  
             select#check-presets(labelledby="name-legend")
-              option(value="cell-no-header") cell-no-header
-              option(value="headers-visible-text") headers-visible-text
-              option(value="th-single-row-column") th-single-row-column
+              each type in Object.keys(checks)
+                each name in checks[type]
+                  option(value="#{name}") #{name}
               
     p.clear
     button#apply-preset Apply Preset Fixture
