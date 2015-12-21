@@ -149,6 +149,18 @@ var examples = {
     // 'audio-caption': require('../examples/rules/audio-caption.html'),
     'blink': require('../examples/rules/blink.html'),
     'button-name': require('../examples/rules/button-name.html'),
+    // 'bypass': require('../examples/rules/bypass.html'),
+    'checkboxgroup': require('../examples/rules/checkboxgroup.html'),
+    'color-contrast': require('../examples/rules/color-contrast.html'),
+    'data-table': require('../examples/rules/data-table.html'),
+    'definition-list': require('../examples/rules/definition-list.html'),
+    'dlitem': require('../examples/rules/dlitem.html'),
+    // 'document-title': require('../examples/rules/document-title.html'),
+    'duplicate-id': require('../examples/rules/duplicate-id.html'),
+    'empty-heading': require('../examples/rules/empty-heading.html'),
+    'frame-title': require('../examples/rules/frame-title.html'),
+    'heading-order': require('../examples/rules/heading-order.html'),
+
     'video-caption': require('../examples/rules/video-caption.html'),
     'video-description': require('../examples/rules/video-description.html')
   },
@@ -235,8 +247,10 @@ analyzeBtn.addEventListener('click', function () {
  */
 
 var defaultOpts = {
-  type: 'tag',
-  values: ['wcag2a', 'wcag2aa']
+  runOnly: {
+    type: 'tag',
+    values: ['wcag2a', 'wcag2aa', 'best-practice']
+  }
 };
 
 configArea.value = JSON.stringify(defaultOpts, null, 2);
@@ -278,7 +292,7 @@ function safeTags(str) {
     .replace(/>/g, '&gt;');
 }
 
-}, {"component/classes":2,"component/query":3,"../examples/rules/accesskeys.html":4,"../examples/rules/area-alt.html":5,"../examples/rules/aria-allowed-attr.html":6,"../examples/rules/aria-required-attr.html":7,"../examples/rules/aria-required-children.html":8,"../examples/rules/aria-required-parent.html":9,"../examples/rules/aria-roles.html":10,"../examples/rules/aria-valid-attr-value.html":11,"../examples/rules/aria-valid-attr.html":12,"../examples/rules/blink.html":13,"../examples/rules/button-name.html":14,"../examples/rules/video-caption.html":15,"../examples/rules/video-description.html":16,"../examples/checks/cell-no-header.html":17,"../examples/checks/headers-visible-text.html":18,"../examples/checks/th-single-row-column.html":19}],
+}, {"component/classes":2,"component/query":3,"../examples/rules/accesskeys.html":4,"../examples/rules/area-alt.html":5,"../examples/rules/aria-allowed-attr.html":6,"../examples/rules/aria-required-attr.html":7,"../examples/rules/aria-required-children.html":8,"../examples/rules/aria-required-parent.html":9,"../examples/rules/aria-roles.html":10,"../examples/rules/aria-valid-attr-value.html":11,"../examples/rules/aria-valid-attr.html":12,"../examples/rules/blink.html":13,"../examples/rules/button-name.html":14,"../examples/rules/checkboxgroup.html":15,"../examples/rules/color-contrast.html":16,"../examples/rules/data-table.html":17,"../examples/rules/definition-list.html":18,"../examples/rules/dlitem.html":19,"../examples/rules/duplicate-id.html":20,"../examples/rules/empty-heading.html":21,"../examples/rules/frame-title.html":22,"../examples/rules/heading-order.html":23,"../examples/rules/video-caption.html":24,"../examples/rules/video-description.html":25,"../examples/checks/cell-no-header.html":26,"../examples/checks/headers-visible-text.html":27,"../examples/checks/th-single-row-column.html":28}],
 2: [function(require, module, exports) {
 /**
  * Module dependencies.
@@ -468,8 +482,8 @@ ClassList.prototype.contains = function(name){
     : !! ~index(this.array(), name);
 };
 
-}, {"indexof":20}],
-20: [function(require, module, exports) {
+}, {"indexof":29}],
+29: [function(require, module, exports) {
 module.exports = function(arr, obj){
   if (arr.indexOf) return arr.indexOf(obj);
   for (var i = 0; i < arr.length; ++i) {
@@ -536,17 +550,44 @@ module.exports = '<p><blink>Buy Now!</blink></p>\n';
 module.exports = '<button type="button"></button>\n';
 }, {}],
 15: [function(require, module, exports) {
-module.exports = '<video width="300" height="200">\n   <source src="sample-clip.ogg" type="video/ogg">\n   <track src="" kind="descriptions" srclang="en" label="english_description">\n</video>\n';
+module.exports = '<div>Numbers</div>\n<div>\n  <input id="inputOne" type="checkbox" name="numbers" checked="true">\n  <label for="inputOne">One</label>\n</div>\n<div>\n  <input id="inputTwo" type="checkbox" name="numbers">\n  <label for="inputTwo">Two</label>\n</div>\n<div>\n  <input id="inputThree" type="checkbox" name="numbers">\n  <label for="inputThree">Three</label>\n</div>\n';
 }, {}],
 16: [function(require, module, exports) {
-module.exports = '<video width="300" height="200">\n   <source src="sample-clip.ogg" type="video/ogg">\n   <track src="" kind="captions" srclang="en" label="english_captions">\n</video>\n';
+module.exports = '<style>\n  div.contrast {\n    background-color: #eee;\n    color: #ccc;\n    padding: 0.5em;\n    text-align: center;\n  }\n</style>\n<div class="contrast">\n  <p>Misty</p>\n</div>\n';
 }, {}],
 17: [function(require, module, exports) {
-module.exports = '<table>\n  <thead>\n    <tr>\n      <td>First</td>\n      <td>Last</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+module.exports = '<table>\n  <thead>\n    <tr>\n      <td rowspan="2">Species</td>\n      <td colspan="2">Info</td>\n    </tr>\n    <tr>\n      <th>Name</th>\n      <th>Age</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Gorilla</td>\n      <td>Koko</td>\n      <td>44</td>\n    </tr>\n    <tr>\n      <td>Human</td>\n      <td>Matt</td>\n      <td>33</td>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}],
 18: [function(require, module, exports) {
-module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="col">First</th>\n      <th scope="col" style="display: none;">Last</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+module.exports = '<dl>\n  <h4>Fun Words</h4>\n  <dt>Gumption</dt>\n  <dd>Shrewd or spirited initiative and resourcefulness.</dd>\n  <dt>Gravitas</dt>\n  <dd>Dignity, seriousness, or solemnity of manner.</dd>\n</dl>\n';
 }, {}],
 19: [function(require, module, exports) {
+module.exports = '<h4>Fun Words</h4>\n<div>\n  <dt>Gumption</dt>\n  <dd>Shrewd or spirited initiative and resourcefulness.</dd>\n  <dt>Gravitas</dt>\n  <dd>Dignity, seriousness, or solemnity of manner.</dd>\n</div>\n';
+}, {}],
+20: [function(require, module, exports) {
+module.exports = '<p id="para">First paragraph.</p>\n<p id="para">Second paragraph.</p>\n';
+}, {}],
+21: [function(require, module, exports) {
+module.exports = '<h3>\n  <span style="display: none;">Heading Text</span>\n</h3>\n';
+}, {}],
+22: [function(require, module, exports) {
+module.exports = '<iframe src="generic-frame-content.html"></iframe>\n';
+}, {}],
+23: [function(require, module, exports) {
+module.exports = '<h3>Level 3</h3>\n<h5>Level 5</h5>\n';
+}, {}],
+24: [function(require, module, exports) {
+module.exports = '<video width="300" height="200">\n   <source src="sample-clip.ogg" type="video/ogg">\n   <track src="" kind="descriptions" srclang="en" label="english_description">\n</video>\n';
+}, {}],
+25: [function(require, module, exports) {
+module.exports = '<video width="300" height="200">\n   <source src="sample-clip.ogg" type="video/ogg">\n   <track src="" kind="captions" srclang="en" label="english_captions">\n</video>\n';
+}, {}],
+26: [function(require, module, exports) {
+module.exports = '<table>\n  <thead>\n    <tr>\n      <td>First</td>\n      <td>Last</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+}, {}],
+27: [function(require, module, exports) {
+module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="col">First</th>\n      <th scope="col" style="display: none;">Last</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+}, {}],
+28: [function(require, module, exports) {
 module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="col" rowspan="2">ID</th>\n      <th scope="col" rowspan="2">DOB</th>\n      <th scope="col">First</th>\n      <th scope="col">Last</th>\n    </tr>\n    <tr>\n      <th scope="col" colspan="2">Name</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>1</th>\n      <td>04/13/1949</th>\n      <td>Christopher</th>\n      <td>Hitchens</th>\n    </tr>\n    <tr>\n      <td>2</th>\n      <td>04/09/1967</th>\n      <td>Sam</th>\n      <td>Harris</th>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}]}, {}, {"1":""})

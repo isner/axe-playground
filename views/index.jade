@@ -8,14 +8,12 @@ block content
     .col-1-2
       fieldset
         legend Type
-        div
-          label
-            input#rule-type(type="radio" name="type" value="rule" checked="true")
-            span.radio-label Rule
-        div
-          label
-            input#check-type(type="radio" name="type" value="check")
-            span.radio-label Check
+        div.radio
+          input#rule-type(type="radio" name="type" value="rule" checked="true")
+          label(for="rule-type") Rule
+        div.radio
+          input#check-type(type="radio" name="type" value="check")
+          label(for="check-type") Check
             
     .col-1-2
       fieldset
@@ -33,7 +31,7 @@ block content
                   option(value="#{name}") #{name}
               
     p.clear
-    button#apply-preset Apply Preset Fixture
+    button#apply-preset Apply Selected Preset
       
     h2 Edit the Fixture
     p You can edit the markup of the fixture below. This can be useful to test whether minor adjustments to the given markup will satisfy the aXe tool's rules.
