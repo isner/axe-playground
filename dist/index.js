@@ -132,6 +132,12 @@ var resultsTextbox  = query('#axe-results');
 var selectedType = RULE;
 
 /**
+ * Initialize expandable areas.
+ */
+
+require('./areas')();
+
+/**
  * Map example snippets to fixture presets.
  */
 
@@ -319,7 +325,7 @@ function safeTags(str) {
     .replace(/>/g, '&gt;');
 }
 
-}, {"component/classes":2,"component/query":3,"../examples/rules/accesskeys.html":4,"../examples/rules/area-alt.html":5,"../examples/rules/aria-allowed-attr.html":6,"../examples/rules/aria-required-attr.html":7,"../examples/rules/aria-required-children.html":8,"../examples/rules/aria-required-parent.html":9,"../examples/rules/aria-roles.html":10,"../examples/rules/aria-valid-attr-value.html":11,"../examples/rules/aria-valid-attr.html":12,"../examples/rules/audio-caption.html":13,"../examples/rules/blink.html":14,"../examples/rules/button-name.html":15,"../examples/rules/bypass.html":16,"../examples/rules/checkboxgroup.html":17,"../examples/rules/color-contrast.html":18,"../examples/rules/data-table.html":19,"../examples/rules/definition-list.html":20,"../examples/rules/dlitem.html":21,"../examples/rules/document-title.html":22,"../examples/rules/duplicate-id.html":23,"../examples/rules/empty-heading.html":24,"../examples/rules/frame-title.html":25,"../examples/rules/heading-order.html":26,"../examples/rules/html-lang.html":27,"../examples/rules/image-alt.html":28,"../examples/rules/input-image-alt.html":29,"../examples/rules/label-title-only.html":30,"../examples/rules/label.html":31,"../examples/rules/layout-table.html":32,"../examples/rules/link-name.html":33,"../examples/rules/list.html":34,"../examples/rules/listitem.html":35,"../examples/rules/marquee.html":36,"../examples/rules/meta-refresh.html":37,"../examples/rules/meta-viewport.html":38,"../examples/rules/object-alt.html":39,"../examples/rules/radiogroup.html":40,"../examples/rules/region.html":41,"../examples/rules/scope.html":42,"../examples/rules/server-side-image-map.html":43,"../examples/rules/skip-link.html":44,"../examples/rules/tabindex.html":45,"../examples/rules/valid-lang.html":46,"../examples/rules/video-caption.html":47,"../examples/rules/video-description.html":48,"../examples/checks/cell-no-header.html":49,"../examples/checks/headers-visible-text.html":50,"../examples/checks/th-single-row-column.html":51}],
+}, {"component/classes":2,"component/query":3,"./areas":4,"../examples/rules/accesskeys.html":5,"../examples/rules/area-alt.html":6,"../examples/rules/aria-allowed-attr.html":7,"../examples/rules/aria-required-attr.html":8,"../examples/rules/aria-required-children.html":9,"../examples/rules/aria-required-parent.html":10,"../examples/rules/aria-roles.html":11,"../examples/rules/aria-valid-attr-value.html":12,"../examples/rules/aria-valid-attr.html":13,"../examples/rules/audio-caption.html":14,"../examples/rules/blink.html":15,"../examples/rules/button-name.html":16,"../examples/rules/bypass.html":17,"../examples/rules/checkboxgroup.html":18,"../examples/rules/color-contrast.html":19,"../examples/rules/data-table.html":20,"../examples/rules/definition-list.html":21,"../examples/rules/dlitem.html":22,"../examples/rules/document-title.html":23,"../examples/rules/duplicate-id.html":24,"../examples/rules/empty-heading.html":25,"../examples/rules/frame-title.html":26,"../examples/rules/heading-order.html":27,"../examples/rules/html-lang.html":28,"../examples/rules/image-alt.html":29,"../examples/rules/input-image-alt.html":30,"../examples/rules/label-title-only.html":31,"../examples/rules/label.html":32,"../examples/rules/layout-table.html":33,"../examples/rules/link-name.html":34,"../examples/rules/list.html":35,"../examples/rules/listitem.html":36,"../examples/rules/marquee.html":37,"../examples/rules/meta-refresh.html":38,"../examples/rules/meta-viewport.html":39,"../examples/rules/object-alt.html":40,"../examples/rules/radiogroup.html":41,"../examples/rules/region.html":42,"../examples/rules/scope.html":43,"../examples/rules/server-side-image-map.html":44,"../examples/rules/skip-link.html":45,"../examples/rules/tabindex.html":46,"../examples/rules/valid-lang.html":47,"../examples/rules/video-caption.html":48,"../examples/rules/video-description.html":49,"../examples/checks/cell-no-header.html":50,"../examples/checks/headers-visible-text.html":51,"../examples/checks/th-single-row-column.html":52}],
 2: [function(require, module, exports) {
 /**
  * Module dependencies.
@@ -509,8 +515,8 @@ ClassList.prototype.contains = function(name){
     : !! ~index(this.array(), name);
 };
 
-}, {"indexof":52}],
-52: [function(require, module, exports) {
+}, {"indexof":53}],
+53: [function(require, module, exports) {
 module.exports = function(arr, obj){
   if (arr.indexOf) return arr.indexOf(obj);
   for (var i = 0; i < arr.length; ++i) {
@@ -544,146 +550,289 @@ exports.engine = function(obj){
 
 }, {}],
 4: [function(require, module, exports) {
-module.exports = '<div>\n  <label>\n    <span>N<u>a</u>me</span>\n    <input type="text" name="name" accesskey="a" />\n  </label>\n</div>\n<div>\n  <label>\n    <span><u>E</u>mail</span>\n    <input type="email" name="email" accesskey="e" />\n  </label>\n</div>\n<div>\n  <button accesskey="a">C<u>a</u>ncel</button>\n</div>\n';
+
+/**
+ * Dependencies.
+ */
+
+var classes = require('component/classes');
+var data = require('code42day/dataset');
+var query = require('component/query');
+
+/**
+ * Constants.
+ */
+
+var HIDDEN_CLASS = 'hidden';
+var SHOW = 'Show ';
+var HIDE = 'Hide ';
+
+/**
+ * Expose `areas`.
+ */
+
+module.exports = initAreas;
+
+/**
+ * Finds all area-trigger anchors and their corresponding areas.
+ * Then binds events handlers to toggle area visibility and
+ * insert text content into the trigger.
+ *
+ * Requires that anchors have the following 3 attributes:
+ * 	 1. class="area-trigger"
+ * 	 2. data-area="[id_of_expandable_area]"
+ * 	 3. data-text="[trigger's_visible_text]"
+ * 	    (ex: a value of "Names" will toggle "Show Names" and "Hide Names")
+ */
+
+function initAreas() {
+  var triggers = query.all('.area-trigger');
+
+  [].slice.call(triggers).forEach(function (trigger) {
+    var text = data(trigger, 'text');
+    var textSpan = document.createElement('span');
+    textSpan.innerHTML = text;
+
+    var stateSpan = document.createElement('span');
+    classes(stateSpan).add('state');
+    stateSpan.innerHTML = SHOW;
+
+    trigger.appendChild(stateSpan);
+    trigger.appendChild(textSpan);
+
+
+    var areaId = data(trigger, 'area');
+    var area = document.getElementById(areaId);
+    trigger.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-controls', areaId);
+    bindEvents(trigger, area);
+  });
+}
+
+function bindEvents(trigger, area) {
+  trigger.addEventListener('click', function () {
+    var state = classes(area).toggle(HIDDEN_CLASS).has(HIDDEN_CLASS);
+    var stateEl = query('span.state', trigger);
+    stateEl.innerHTML = state ? SHOW : HIDE;
+    trigger.setAttribute('aria-expanded', !state);
+  });
+}
+
+}, {"component/classes":2,"code42day/dataset":54,"component/query":3}],
+54: [function(require, module, exports) {
+module.exports=dataset;
+
+/*global document*/
+
+
+// replace namesLikeThis with names-like-this
+function toDashed(name) {
+  return name.replace(/([A-Z])/g, function(u) {
+    return "-" + u.toLowerCase();
+  });
+}
+
+var fn;
+
+if (typeof document !== "undefined" && document.head && document.head.dataset) {
+  fn = {
+    set: function(node, attr, value) {
+      node.dataset[attr] = value;
+    },
+    get: function(node, attr) {
+      return node.dataset[attr];
+    },
+    del: function (node, attr) {
+      delete node.dataset[attr];
+    }
+  };
+} else {
+  fn = {
+    set: function(node, attr, value) {
+      node.setAttribute('data-' + toDashed(attr), value);
+    },
+    get: function(node, attr) {
+      return node.getAttribute('data-' + toDashed(attr));
+    },
+    del: function (node, attr) {
+      node.removeAttribute('data-' + toDashed(attr));
+    }
+  };
+}
+
+function dataset(node, attr, value) {
+  var self = {
+    set: set,
+    get: get,
+    del: del
+  };
+
+  function set(attr, value) {
+    fn.set(node, attr, value);
+    return self;
+  }
+
+  function del(attr) {
+    fn.del(node, attr);
+    return self;
+  }
+
+  function get(attr) {
+    return fn.get(node, attr);
+  }
+
+  if (arguments.length === 3) {
+    return set(attr, value);
+  }
+  if (arguments.length == 2) {
+    return get(attr);
+  }
+
+  return self;
+}
+
 }, {}],
 5: [function(require, module, exports) {
-module.exports = '<img src="solar-system.jpg" alt="Solar System" width="472" height="800"\nusemap="#map">\n<map id="map" name="map">\n  <area shape="rect" coords="115,158,276,192"\n  href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n  <area shape="rect" coords="115,193,276,234"\n  href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n  <area shape="rect" coords="118,235,273,280"\n  href="http://en.wikipedia.org/wiki/Earth">\n  <area shape="rect" coords="119,280,272,323"\n  href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n  <area shape="rect" coords="119,324,322,455"\n  href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n  <area shape="rect" coords="118,457,352,605"\n  href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n  <area shape="rect" coords="119,606,308,666"\n  href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n  <area shape="rect" coords="117,664,305,732"\n  href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n</map>\n';
+module.exports = '<div>\n  <label>\n    <span>N<u>a</u>me</span>\n    <input type="text" name="name" accesskey="a" />\n  </label>\n</div>\n<div>\n  <label>\n    <span><u>E</u>mail</span>\n    <input type="email" name="email" accesskey="e" />\n  </label>\n</div>\n<div>\n  <button accesskey="a">C<u>a</u>ncel</button>\n</div>\n';
 }, {}],
 6: [function(require, module, exports) {
-module.exports = '<label>\n  <span>Name</span>\n  <input type="text" aria-expanded="false">\n</label>\n';
+module.exports = '<img src="solar-system.jpg" alt="Solar System" width="472" height="800"\nusemap="#map">\n<map id="map" name="map">\n  <area shape="rect" coords="115,158,276,192"\n  href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n  <area shape="rect" coords="115,193,276,234"\n  href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n  <area shape="rect" coords="118,235,273,280"\n  href="http://en.wikipedia.org/wiki/Earth">\n  <area shape="rect" coords="119,280,272,323"\n  href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n  <area shape="rect" coords="119,324,322,455"\n  href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n  <area shape="rect" coords="118,457,352,605"\n  href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n  <area shape="rect" coords="119,606,308,666"\n  href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n  <area shape="rect" coords="117,664,305,732"\n  href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n</map>\n';
 }, {}],
 7: [function(require, module, exports) {
-module.exports = '<label>\n  <span>Name</span>\n  <input type="text" role="combobox">\n</label>\n';
+module.exports = '<label>\n  <span>Name</span>\n  <input type="text" aria-expanded="false">\n</label>\n';
 }, {}],
 8: [function(require, module, exports) {
-module.exports = '<div role="list">\n  <div>One</div>\n  <div>Two</div>\n</div>\n';
+module.exports = '<label>\n  <span>Name</span>\n  <input type="text" role="combobox">\n</label>\n';
 }, {}],
 9: [function(require, module, exports) {
-module.exports = '<div>\n  <div role="listitem">One</div>\n  <div role="listitem">Two</div>\n</div>\n';
+module.exports = '<div role="list">\n  <div>One</div>\n  <div>Two</div>\n</div>\n';
 }, {}],
 10: [function(require, module, exports) {
-module.exports = '<div role="peanut">My role is invalid!</div>\n<div role="window">My role is abstract!</div>\n';
+module.exports = '<div>\n  <div role="listitem">One</div>\n  <div role="listitem">Two</div>\n</div>\n';
 }, {}],
 11: [function(require, module, exports) {
-module.exports = '<label>\n  <span>Name</span>\n  <input type="text" aria-describedby="false">\n</label>\n';
+module.exports = '<div role="peanut">My role is invalid!</div>\n<div role="window">My role is abstract!</div>\n';
 }, {}],
 12: [function(require, module, exports) {
-module.exports = '<button aria-cancel="true">Cancel</button>\n';
+module.exports = '<label>\n  <span>Name</span>\n  <input type="text" aria-describedby="false">\n</label>\n';
 }, {}],
 13: [function(require, module, exports) {
-module.exports = '<audio controls="true">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <source src="" type="audio/mp4">\n</audio>\n';
+module.exports = '<button aria-cancel="true">Cancel</button>\n';
 }, {}],
 14: [function(require, module, exports) {
-module.exports = '<p><blink>Buy Now!</blink></p>\n';
+module.exports = '<audio controls="true">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <source src="" type="audio/mp4">\n</audio>\n';
 }, {}],
 15: [function(require, module, exports) {
-module.exports = '<button type="button"></button>\n';
+module.exports = '<p><blink>Buy Now!</blink></p>\n';
 }, {}],
 16: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'bypass\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<button type="button"></button>\n';
 }, {}],
 17: [function(require, module, exports) {
-module.exports = '<div>Numbers</div>\n<div>\n  <input id="inputOne" type="checkbox" name="numbers" checked="true">\n  <label for="inputOne">One</label>\n</div>\n<div>\n  <input id="inputTwo" type="checkbox" name="numbers">\n  <label for="inputTwo">Two</label>\n</div>\n<div>\n  <input id="inputThree" type="checkbox" name="numbers">\n  <label for="inputThree">Three</label>\n</div>\n';
+module.exports = '<!--\nSorry, the \'bypass\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 18: [function(require, module, exports) {
-module.exports = '<style>\n  div.contrast {\n    background-color: #eee;\n    color: #ccc;\n    padding: 0.5em;\n    text-align: center;\n  }\n</style>\n<div class="contrast">\n  <p>Misty</p>\n</div>\n';
+module.exports = '<div>Numbers</div>\n<div>\n  <input id="inputOne" type="checkbox" name="numbers" checked="true">\n  <label for="inputOne">One</label>\n</div>\n<div>\n  <input id="inputTwo" type="checkbox" name="numbers">\n  <label for="inputTwo">Two</label>\n</div>\n<div>\n  <input id="inputThree" type="checkbox" name="numbers">\n  <label for="inputThree">Three</label>\n</div>\n';
 }, {}],
 19: [function(require, module, exports) {
-module.exports = '<table>\n  <thead>\n    <tr>\n      <td rowspan="2">Species</td>\n      <td colspan="2">Info</td>\n    </tr>\n    <tr>\n      <th>Name</th>\n      <th>Age</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Gorilla</td>\n      <td>Koko</td>\n      <td>44</td>\n    </tr>\n    <tr>\n      <td>Human</td>\n      <td>Matt</td>\n      <td>33</td>\n    </tr>\n  </tbody>\n</table>\n';
+module.exports = '<style>\n  div.contrast {\n    background-color: #eee;\n    color: #ccc;\n    padding: 0.5em;\n    text-align: center;\n  }\n</style>\n<div class="contrast">\n  <p>Misty</p>\n</div>\n';
 }, {}],
 20: [function(require, module, exports) {
-module.exports = '<dl>\n  <h4>Fun Words</h4>\n  <dt>Gumption</dt>\n  <dd>Shrewd or spirited initiative and resourcefulness.</dd>\n  <dt>Gravitas</dt>\n  <dd>Dignity, seriousness, or solemnity of manner.</dd>\n</dl>\n';
+module.exports = '<table>\n  <thead>\n    <tr>\n      <td rowspan="2">Species</td>\n      <td colspan="2">Info</td>\n    </tr>\n    <tr>\n      <th>Name</th>\n      <th>Age</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Gorilla</td>\n      <td>Koko</td>\n      <td>44</td>\n    </tr>\n    <tr>\n      <td>Human</td>\n      <td>Matt</td>\n      <td>33</td>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}],
 21: [function(require, module, exports) {
-module.exports = '<h4>Fun Words</h4>\n<div>\n  <dt>Gumption</dt>\n  <dd>Shrewd or spirited initiative and resourcefulness.</dd>\n  <dt>Gravitas</dt>\n  <dd>Dignity, seriousness, or solemnity of manner.</dd>\n</div>\n';
+module.exports = '<dl>\n  <h4>Fun Words</h4>\n  <dt>Gumption</dt>\n  <dd>Shrewd or spirited initiative and resourcefulness.</dd>\n  <dt>Gravitas</dt>\n  <dd>Dignity, seriousness, or solemnity of manner.</dd>\n</dl>\n';
 }, {}],
 22: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'document-title\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<h4>Fun Words</h4>\n<div>\n  <dt>Gumption</dt>\n  <dd>Shrewd or spirited initiative and resourcefulness.</dd>\n  <dt>Gravitas</dt>\n  <dd>Dignity, seriousness, or solemnity of manner.</dd>\n</div>\n';
 }, {}],
 23: [function(require, module, exports) {
-module.exports = '<p id="para">First paragraph.</p>\n<p id="para">Second paragraph.</p>\n';
+module.exports = '<!--\nSorry, the \'document-title\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 24: [function(require, module, exports) {
-module.exports = '<h3>\n  <span style="display: none;">Heading Text</span>\n</h3>\n';
+module.exports = '<p id="para">First paragraph.</p>\n<p id="para">Second paragraph.</p>\n';
 }, {}],
 25: [function(require, module, exports) {
-module.exports = '<iframe src="generic-frame-content.html"></iframe>\n';
+module.exports = '<h3>\n  <span style="display: none;">Heading Text</span>\n</h3>\n';
 }, {}],
 26: [function(require, module, exports) {
-module.exports = '<h3>Level 3</h3>\n<h5>Level 5</h5>\n';
+module.exports = '<iframe src="generic-frame-content.html"></iframe>\n';
 }, {}],
 27: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'html-lang\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<h3>Level 3</h3>\n<h5>Level 5</h5>\n';
 }, {}],
 28: [function(require, module, exports) {
-module.exports = '<img src="solar-system.jpg" style="height: 200px;"/>\n';
+module.exports = '<!--\nSorry, the \'html-lang\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 29: [function(require, module, exports) {
-module.exports = '<input type="image" src="cancel-button.png" style="height: 60px;"/>\n';
+module.exports = '<img src="solar-system.jpg" style="height: 200px;"/>\n';
 }, {}],
 30: [function(require, module, exports) {
-module.exports = '<div>\n  <label>Name</label>\n  <input type="text" title="Name"/>\n</div>\n<div>\n  <label id="emailLabel">Email</label>\n  <input type="email" aria-describedby="emailLabel"/>\n</div>\n';
+module.exports = '<input type="image" src="cancel-button.png" style="height: 60px;"/>\n';
 }, {}],
 31: [function(require, module, exports) {
-module.exports = '<span>Name</span>\n<input type="text"/>\n';
+module.exports = '<div>\n  <label>Name</label>\n  <input type="text" title="Name"/>\n</div>\n<div>\n  <label id="emailLabel">Email</label>\n  <input type="email" aria-describedby="emailLabel"/>\n</div>\n';
 }, {}],
 32: [function(require, module, exports) {
-module.exports = '<table role="presentation" summary="A layout table">\n  <caption>A layout table</caption>\n  <tr>\n    <th>This</th>\n    <th>table</th>\n  </tr>\n  <tr>\n    <td>is only</td>\n    <td>for</td>\n  </tr>\n  <tr>\n    <td>layout</td>\n    <td>purposes</td>\n  </tr>\n</table>\n';
+module.exports = '<span>Name</span>\n<input type="text"/>\n';
 }, {}],
 33: [function(require, module, exports) {
-module.exports = '<div>\n  <a href="http://www.google.com"></a>\n</div>\n<div style="background-color: #00274d; padding: 10px; text-align: center;">\n  <a href="http://www.deque.com">\n    <img src="deque.png" alt="Deque"/>\n    <span class="sr">Deque<span>\n  </a>\n</div>\n';
+module.exports = '<table role="presentation" summary="A layout table">\n  <caption>A layout table</caption>\n  <tr>\n    <th>This</th>\n    <th>table</th>\n  </tr>\n  <tr>\n    <td>is only</td>\n    <td>for</td>\n  </tr>\n  <tr>\n    <td>layout</td>\n    <td>purposes</td>\n  </tr>\n</table>\n';
 }, {}],
 34: [function(require, module, exports) {
-module.exports = '<ul>\n  <h3>Numbers</h3>\n  <li>One</li>\n  <li>Two</li>\n  <li>Three</li>\n</ul>\n';
+module.exports = '<div>\n  <a href="http://www.google.com"></a>\n</div>\n<div style="background-color: #00274d; padding: 10px; text-align: center;">\n  <a href="http://www.deque.com">\n    <img src="deque.png" alt="Deque"/>\n    <span class="sr">Deque<span>\n  </a>\n</div>\n';
 }, {}],
 35: [function(require, module, exports) {
-module.exports = '<h3>Numbers</h3>\n<div class="list">\n  <li>One</li>\n  <li>Two</li>\n  <li>Three</li>\n</div>\n';
+module.exports = '<ul>\n  <h3>Numbers</h3>\n  <li>One</li>\n  <li>Two</li>\n  <li>Three</li>\n</ul>\n';
 }, {}],
 36: [function(require, module, exports) {
-module.exports = '<marquee>Performing Tonight!</marquee>\n';
+module.exports = '<h3>Numbers</h3>\n<div class="list">\n  <li>One</li>\n  <li>Two</li>\n  <li>Three</li>\n</div>\n';
 }, {}],
 37: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'meta-refresh\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<marquee>Performing Tonight!</marquee>\n';
 }, {}],
 38: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'meta-viewport\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<!--\nSorry, the \'meta-refresh\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 39: [function(require, module, exports) {
-module.exports = '<object type="image/png" data="deque.png" style="background-color: #00274d; padding: 10px; text-align: center;"></object>\n';
+module.exports = '<!--\nSorry, the \'meta-viewport\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 40: [function(require, module, exports) {
-module.exports = '<div>Numbers</div>\n<div>\n  <input id="inputOne" type="radio" name="numbers" checked="true">\n  <label for="inputOne">One</label>\n</div>\n<div>\n  <input id="inputTwo" type="radio" name="numbers">\n  <label for="inputTwo">Two</label>\n</div>\n<div>\n  <input id="inputThree" type="radio" name="numbers">\n  <label for="inputThree">Three</label>\n</div>\n';
+module.exports = '<object type="image/png" data="deque.png" style="background-color: #00274d; padding: 10px; text-align: center;"></object>\n';
 }, {}],
 41: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'region\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<div>Numbers</div>\n<div>\n  <input id="inputOne" type="radio" name="numbers" checked="true">\n  <label for="inputOne">One</label>\n</div>\n<div>\n  <input id="inputTwo" type="radio" name="numbers">\n  <label for="inputTwo">Two</label>\n</div>\n<div>\n  <input id="inputThree" type="radio" name="numbers">\n  <label for="inputThree">Three</label>\n</div>\n';
 }, {}],
 42: [function(require, module, exports) {
-module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="column">Gear</th>\n      <td scope="col">Quantity</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Crampons</td>\n      <td>3</td>\n    </tr>\n    <tr>\n      <td>Ice Axes</td>\n      <td>12</td>\n    </tr>\n  </tbody>\n</table>\n';
+module.exports = '<!--\nSorry, the \'region\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 43: [function(require, module, exports) {
-module.exports = '<a href="#">\n  <img src="solar-system.jpg" alt="Solar system" ismap/>\n</a>\n';
+module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="column">Gear</th>\n      <td scope="col">Quantity</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Crampons</td>\n      <td>3</td>\n    </tr>\n    <tr>\n      <td>Ice Axes</td>\n      <td>12</td>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}],
 44: [function(require, module, exports) {
-module.exports = '<!--\nSorry, the \'skip-link\' rule\nrequires a full-page test target.\n-->\n';
+module.exports = '<a href="#">\n  <img src="solar-system.jpg" alt="Solar system" ismap/>\n</a>\n';
 }, {}],
 45: [function(require, module, exports) {
-module.exports = '<div>\n  <a href="#">Link 1 (ok)</a>\n</div>\n<div>\n  <a tabindex="0">Link 2 (ok)</a>\n</div>\n<div>\n  <a href="#" tabindex="1">Link 3 (not ok)</a>\n</div>\n';
+module.exports = '<!--\nSorry, the \'skip-link\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 46: [function(require, module, exports) {
-module.exports = '<p lang="xx">Ceci n\'est pas une langue</p>\n';
+module.exports = '<div>\n  <a href="#">Link 1 (ok)</a>\n</div>\n<div>\n  <a tabindex="0">Link 2 (ok)</a>\n</div>\n<div>\n  <a href="#" tabindex="1">Link 3 (not ok)</a>\n</div>\n';
 }, {}],
 47: [function(require, module, exports) {
-module.exports = '<video width="300" height="200">\n  <source src="sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="descriptions" srclang="en" label="english_description">\n</video>\n';
+module.exports = '<p lang="xx">Ceci n\'est pas une langue</p>\n';
 }, {}],
 48: [function(require, module, exports) {
-module.exports = '<video width="300" height="200">\n  <source src="sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="captions" srclang="en" label="english_captions">\n</video>\n';
+module.exports = '<video width="300" height="200">\n  <source src="sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="descriptions" srclang="en" label="english_description">\n</video>\n';
 }, {}],
 49: [function(require, module, exports) {
-module.exports = '<table>\n  <thead>\n    <tr>\n      <td>First</td>\n      <td>Last</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+module.exports = '<video width="300" height="200">\n  <source src="sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="captions" srclang="en" label="english_captions">\n</video>\n';
 }, {}],
 50: [function(require, module, exports) {
-module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="col">First</th>\n      <th scope="col" style="display: none;">Last</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+module.exports = '<table>\n  <thead>\n    <tr>\n      <td>First</td>\n      <td>Last</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}],
 51: [function(require, module, exports) {
+module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="col">First</th>\n      <th scope="col" style="display: none;">Last</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';
+}, {}],
+52: [function(require, module, exports) {
 module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="col" rowspan="2">ID</th>\n      <th scope="col" rowspan="2">DOB</th>\n      <th scope="col">First</th>\n      <th scope="col">Last</th>\n    </tr>\n    <tr>\n      <th scope="col" colspan="2">Name</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>1</th>\n      <td>04/13/1949</th>\n      <td>Christopher</th>\n      <td>Hitchens</th>\n    </tr>\n    <tr>\n      <td>2</th>\n      <td>04/09/1967</th>\n      <td>Sam</th>\n      <td>Harris</th>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}]}, {}, {"1":""})

@@ -2,40 +2,46 @@ extends layout
 
 block content
   .col-1-2
-    h2 Choose a Preset Fixture
-    p Start by choosing a preset fixture. Choose the 'Type' and 'Name' of a specific rule or check you like to test.
+    a.area-trigger(href="#" role="button" data-area="preset-area" data-text="Preset Fixtures")
     
-    .col-1-2
-      fieldset
-        legend Type
-        div.radio
-          input#rule-type(type="radio" name="type" value="rule" checked="true")
-          label(for="rule-type") Rule
-        div.radio
-          input#check-type(type="radio" name="type" value="check")
-          label(for="check-type") Check
-            
-    .col-1-2
-      fieldset
-        legend#name-legend Name
-        .presets.rule
-          div
-            select#rule-presets(labelledby="name-legend")
-              each name in rules
-                option(value="#{name}") #{name}
-        .presets.check.hidden
-          div  
-            select#check-presets(labelledby="name-legend")
-              each type in Object.keys(checks)
-                each name in checks[type]
-                  option(value="#{name}") #{name}
+    #preset-area.hidden
+      h2 Choose a Preset Fixture
+      p Choose the 'Type' and 'Name' of a specific rule or check you would like to test.
+      
+      .col-1-2
+        fieldset
+          legend Type
+          div.radio
+            input#rule-type(type="radio" name="type" value="rule" checked="true")
+            label(for="rule-type") Rule
+          div.radio
+            input#check-type(type="radio" name="type" value="check")
+            label(for="check-type") Check
               
-    p.clear
-    button#apply-preset Apply Selected Preset
+      .col-1-2
+        fieldset
+          legend#name-legend Name
+          .presets.rule
+            div
+              select#rule-presets(labelledby="name-legend")
+                each name in rules
+                  option(value="#{name}") #{name}
+          .presets.check.hidden
+            div  
+              select#check-presets(labelledby="name-legend")
+                each type in Object.keys(checks)
+                  each name in checks[type]
+                    option(value="#{name}") #{name}
+              
+      p.clear
+      button#apply-preset Apply Selected Preset
       
     h2 Edit the Fixture
-    p You can edit the markup of the fixture below. This can be useful to test whether minor adjustments to the given markup will satisfy the aXe tool's rules.
-    
+    p 
+      | Modify the markup of the fixture below. This can be useful to test 
+      | whether minor adjustments to the given markup will satisfy the aXe 
+      | tool's rules.
+      
     label#edit-html-legend(for="markup") Edit HTML
     textarea#markup.prettyprint(rows="10")
     button#render Render Markup
@@ -44,19 +50,22 @@ block content
     p Everything in the area below will be targeted by aXe when you analyze the page.
     #fixture
       block fixture
-        
+
   .col-1-2
-    h2 Modify the aXe Options
-    p 
-      | Modify the options object below and click 'Analyze' to update the results. For more info, see#{' '}
-      a(href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#b-options-parameter") the aXe documentation for the Options parameter
-      | .      
-    label(for="config-textarea") Edit Options
-    textarea#config-textarea(rows="8")
-    button#analyze Analyze
+    a.area-trigger(href="#" role="button" data-area="options-area" data-text="aXe Options") 
     
-    h2 View the aXe Results
+    #options-area.hidden
+      h2 aXe Options
+      p 
+        | Modify the options object below and click 'Analyze' to update the results. For more info, see#{' '}
+        a(href="https://github.com/dequelabs/axe-core/blob/master/doc/API.md#b-options-parameter") the aXe documentation for the Options parameter
+        | . 
+             
+      label(for="config-textarea") Edit Options
+      textarea#config-textarea(rows="8")
+      button#analyze Update Results
     
+    h2 aXe Results
     label(for="axe-results") Violations Array
     textarea#axe-results(rows="30" readonly="true")
 
