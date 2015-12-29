@@ -67,7 +67,7 @@ gulp.task('build', ['clean'], function () {
     .pipe(gulp.dest(BUILD_DIR));
 
   // Build client scripts
-  gulp.src('lib/**/*.js')
+  gulp.src('lib/index.js')
     .pipe(duo())
     .pipe(gulp.dest(BUILD_DIR));
 
