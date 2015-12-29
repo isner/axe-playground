@@ -13,6 +13,11 @@ var gulp = require('gulp');
 var rules = require('./lib/rules');
 var checks = require('./lib/checks');
 
+var locals = {
+  rules: rules,
+  checks: checks
+};
+
 /**
  * Define constants.
  */
@@ -48,15 +53,11 @@ gulp.task('build', ['clean'], function () {
 
   // Render views
   gulp.src('views/**/*.jade')
-    .pipe(jade({
-      locals: {
-        rules: rules,
-        checks: checks
-      }
-    }))
+    .pipe(jade({ locals: locals }))
     .pipe(gulp.dest(BUILD_DIR));
 
   // Render example jade snippets
+  // TODO Remove if jade is not used for examples
   gulp.src('examples/**/*.jade')
     .pipe(jade())
     .pipe(gulp.dest(BUILD_DIR));
@@ -81,6 +82,6 @@ gulp.task('build', ['clean'], function () {
 
   // Copy images to dist
   gulp.src('images/*.*')
-    .pipe(gulp.dest(BUILD_DIR));
+    .pipe(gulp.dest(path.join(BUILD_DIR, 'images')));
 
 });
