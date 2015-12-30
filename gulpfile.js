@@ -10,12 +10,9 @@ var fs = require('fs-extra');
 var path = require('path');
 var gulp = require('gulp');
 
-var rules = require('./lib/rules');
-var checks = require('./lib/checks');
-
 var locals = {
-  rules: rules,
-  checks: checks
+  rules: require('./lib/rules'),
+  checks: require('./lib/checks')
 };
 
 /**
