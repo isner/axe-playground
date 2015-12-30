@@ -52,18 +52,8 @@ gulp.task('build', ['clean'], function () {
   fs.copySync(axeSrc, axeDest);
 
   // Render views
-  gulp.src('views/**/*.jade')
+  gulp.src('views/index.jade')
     .pipe(jade({ locals: locals }))
-    .pipe(gulp.dest(BUILD_DIR));
-
-  // Render example jade snippets
-  // TODO Remove if jade is not used for examples
-  gulp.src('examples/**/*.jade')
-    .pipe(jade())
-    .pipe(gulp.dest(BUILD_DIR));
-
-  // Copy example html snippets
-  gulp.src('examples/**/*.html')
     .pipe(gulp.dest(BUILD_DIR));
 
   // Build client scripts
