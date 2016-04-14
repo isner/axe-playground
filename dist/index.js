@@ -331,7 +331,11 @@ function safeTags(str) {
  * Module dependencies.
  */
 
-var index = require('indexof');
+try {
+  var index = require('indexof');
+} catch (err) {
+  var index = require('component-indexof');
+}
 
 /**
  * Whitespace regexp.
@@ -515,7 +519,7 @@ ClassList.prototype.contains = function(name){
     : !! ~index(this.array(), name);
 };
 
-}, {"indexof":53}],
+}, {"indexof":53,"component-indexof":53}],
 53: [function(require, module, exports) {
 module.exports = function(arr, obj){
   if (arr.indexOf) return arr.indexOf(obj);
