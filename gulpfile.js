@@ -21,7 +21,7 @@ var locals = {
 
 var PATH_TO_AXE = 'node_modules/axe-core';
 var AXE_FILE = 'axe.min.js';
-var BUILD_DIR = 'dist';
+var BUILD_DIR = 'build';
 
 /**
  * Define tasks.
@@ -48,13 +48,8 @@ gulp.task('build', ['clean'], function () {
   var axeDest = path.join(BUILD_DIR, AXE_FILE);
   fs.copySync(axeSrc, axeDest);
 
-  // Render views
-  gulp.src('views/index.jade')
-    .pipe(jade({ locals: locals }))
-    .pipe(gulp.dest(BUILD_DIR));
-
   // Build client scripts
-  gulp.src('lib/index.js')
+  gulp.src('client/index.js')
     .pipe(duo())
     .pipe(gulp.dest(BUILD_DIR));
 

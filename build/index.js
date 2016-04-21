@@ -700,7 +700,7 @@ function dataset(node, attr, value) {
 module.exports = '<div>\n  <label>\n    <span>N<u>a</u>me</span>\n    <input type="text" name="name" accesskey="a" />\n  </label>\n</div>\n<div>\n  <label>\n    <span><u>E</u>mail</span>\n    <input type="email" name="email" accesskey="e" />\n  </label>\n</div>\n<div>\n  <button accesskey="a">C<u>a</u>ncel</button>\n</div>\n';
 }, {}],
 6: [function(require, module, exports) {
-module.exports = '<img src="images/solar-system.jpg" alt="Solar System" width="472" height="800"\nusemap="#map">\n<map id="map" name="map">\n  <area shape="rect" coords="115,158,276,192"\n  href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n  <area shape="rect" coords="115,193,276,234"\n  href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n  <area shape="rect" coords="118,235,273,280"\n  href="http://en.wikipedia.org/wiki/Earth">\n  <area shape="rect" coords="119,280,272,323"\n  href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n  <area shape="rect" coords="119,324,322,455"\n  href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n  <area shape="rect" coords="118,457,352,605"\n  href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n  <area shape="rect" coords="119,606,308,666"\n  href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n  <area shape="rect" coords="117,664,305,732"\n  href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n</map>\n';
+module.exports = '<img src="client/images/solar-system.jpg" alt="Solar System" width="472" height="800"\nusemap="#map">\n<map id="map" name="map">\n  <area shape="rect" coords="115,158,276,192"\n  href="http://en.wikipedia.org/wiki/Mercury_%28planet%29" alt="Mercury">\n  <area shape="rect" coords="115,193,276,234"\n  href="http://en.wikipedia.org/wiki/Venus" alt="Venus">\n  <area shape="rect" coords="118,235,273,280"\n  href="http://en.wikipedia.org/wiki/Earth">\n  <area shape="rect" coords="119,280,272,323"\n  href="http://en.wikipedia.org/wiki/Mars" alt="Mars">\n  <area shape="rect" coords="119,324,322,455"\n  href="http://en.wikipedia.org/wiki/Jupiter" alt="Jupiter">\n  <area shape="rect" coords="118,457,352,605"\n  href="http://en.wikipedia.org/wiki/Saturn" alt="Saturn">\n  <area shape="rect" coords="119,606,308,666"\n  href="http://en.wikipedia.org/wiki/Uranus" alt="Uranus">\n  <area shape="rect" coords="117,664,305,732"\n  href="http://en.wikipedia.org/wiki/Neptune" alt="Neptune">\n</map>\n';
 }, {}],
 7: [function(require, module, exports) {
 module.exports = '<label>\n  <span>Name</span>\n  <input type="text" aria-expanded="false">\n</label>\n';
@@ -769,10 +769,10 @@ module.exports = '<h3>Level 3</h3>\n<h5>Level 5</h5>\n';
 module.exports = '<!--\nSorry, the \'html-lang\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 29: [function(require, module, exports) {
-module.exports = '<img src="images/solar-system.jpg" style="height: 200px;"/>\n';
+module.exports = '<img src="client/images/solar-system.jpg" style="height: 200px;"/>\n';
 }, {}],
 30: [function(require, module, exports) {
-module.exports = '<input type="image" src="images/cancel-button.png" style="height: 60px;"/>\n';
+module.exports = '<input type="image" src="client/images/cancel-button.png" style="height: 60px;"/>\n';
 }, {}],
 31: [function(require, module, exports) {
 module.exports = '<div>\n  <label>Name</label>\n  <input type="text" title="Name"/>\n</div>\n<div>\n  <label id="emailLabel">Email</label>\n  <input type="email" aria-describedby="emailLabel"/>\n</div>\n';
@@ -784,7 +784,7 @@ module.exports = '<span>Name</span>\n<input type="text"/>\n';
 module.exports = '<table role="presentation" summary="A layout table">\n  <caption>A layout table</caption>\n  <tr>\n    <th>This</th>\n    <th>table</th>\n  </tr>\n  <tr>\n    <td>is only</td>\n    <td>for</td>\n  </tr>\n  <tr>\n    <td>layout</td>\n    <td>purposes</td>\n  </tr>\n</table>\n';
 }, {}],
 34: [function(require, module, exports) {
-module.exports = '<div>\n  <a href="http://www.google.com"></a>\n</div>\n<div style="background-color: #00274d; padding: 10px; text-align: center;">\n  <a href="http://www.deque.com">\n    <img src="images/deque.png" alt="Deque"/>\n    <span class="sr">Deque<span>\n  </a>\n</div>\n';
+module.exports = '<div>\n  <a href="http://www.google.com"></a>\n</div>\n<div style="background-color: #00274d; padding: 10px; text-align: center;">\n  <a href="http://www.deque.com">\n    <img src="client/images/deque.png" alt="Deque"/>\n    <span class="sr">Deque<span>\n  </a>\n</div>\n';
 }, {}],
 35: [function(require, module, exports) {
 module.exports = '<ul>\n  <h3>Numbers</h3>\n  <li>One</li>\n  <li>Two</li>\n  <li>Three</li>\n</ul>\n';
@@ -802,7 +802,7 @@ module.exports = '<!--\nSorry, the \'meta-refresh\' rule\nrequires a full-page t
 module.exports = '<!--\nSorry, the \'meta-viewport\' rule\nrequires a full-page test target.\n-->\n';
 }, {}],
 40: [function(require, module, exports) {
-module.exports = '<object type="image/png" data="images/deque.png" style="background-color: #00274d; padding: 10px; text-align: center;"></object>\n';
+module.exports = '<object type="image/png" data="client/images/deque.png" style="background-color: #00274d; padding: 10px; text-align: center;"></object>\n';
 }, {}],
 41: [function(require, module, exports) {
 module.exports = '<div>Numbers</div>\n<div>\n  <input id="inputOne" type="radio" name="numbers" checked="true">\n  <label for="inputOne">One</label>\n</div>\n<div>\n  <input id="inputTwo" type="radio" name="numbers">\n  <label for="inputTwo">Two</label>\n</div>\n<div>\n  <input id="inputThree" type="radio" name="numbers">\n  <label for="inputThree">Three</label>\n</div>\n';
@@ -814,7 +814,7 @@ module.exports = '<!--\nSorry, the \'region\' rule\nrequires a full-page test ta
 module.exports = '<table>\n  <thead>\n    <tr>\n      <th scope="column">Gear</th>\n      <td scope="col">Quantity</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Crampons</td>\n      <td>3</td>\n    </tr>\n    <tr>\n      <td>Ice Axes</td>\n      <td>12</td>\n    </tr>\n  </tbody>\n</table>\n';
 }, {}],
 44: [function(require, module, exports) {
-module.exports = '<a href="#">\n  <img src="images/solar-system.jpg" alt="Solar system" ismap/>\n</a>\n';
+module.exports = '<a href="#">\n  <img src="client/images/solar-system.jpg" alt="Solar system" ismap/>\n</a>\n';
 }, {}],
 45: [function(require, module, exports) {
 module.exports = '<!--\nSorry, the \'skip-link\' rule\nrequires a full-page test target.\n-->\n';
@@ -826,10 +826,10 @@ module.exports = '<div>\n  <a href="#">Link 1 (ok)</a>\n</div>\n<div>\n  <a tabi
 module.exports = '<p lang="xx">Ceci n\'est pas une langue</p>\n';
 }, {}],
 48: [function(require, module, exports) {
-module.exports = '<video width="300" height="200">\n  <source src="images/sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="descriptions" srclang="en" label="english_description">\n</video>\n';
+module.exports = '<video width="300" height="200">\n  <source src="client/images/sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="descriptions" srclang="en" label="english_description">\n</video>\n';
 }, {}],
 49: [function(require, module, exports) {
-module.exports = '<video width="300" height="200">\n  <source src="images/sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="captions" srclang="en" label="english_captions">\n</video>\n';
+module.exports = '<video width="300" height="200">\n  <source src="client/images/sample-clip.ogg" type="video/ogg">\n  <!-- \'src\' attribute value empty for example purposes -->\n  <track src="" kind="captions" srclang="en" label="english_captions">\n</video>\n';
 }, {}],
 50: [function(require, module, exports) {
 module.exports = '<table>\n  <thead>\n    <tr>\n      <td>First</td>\n      <td>Last</td>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>Jerry</td>\n      <td>Seinfeld</td>\n    </tr>\n  </tbody>\n</table>\n';

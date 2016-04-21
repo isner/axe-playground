@@ -1,4 +1,4 @@
-extends layout
+extends ../layout
 
 block content
   .col-1-2
@@ -69,6 +69,6 @@ block content
     label(for="axe-results") Violations Array
     textarea#axe-results(rows="30" readonly="true")
 
-  script(src="index.js")
+  script(src="build/index.js")
   script.
     analyze();
