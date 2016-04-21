@@ -12,7 +12,7 @@ var app = module.exports = express();
  */
 
 app.get('/', function (req, res) {
-  res.render('home', {
+  res.render('index', {
     rules: require('../lib/rules'),
     checks: require('../lib/checks'),
   });

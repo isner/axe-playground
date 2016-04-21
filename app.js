@@ -13,7 +13,6 @@ var PORT = 3000;
  * Configure view rendering.
  */
 
-app.set('views', './views');
 app.set('view engine', 'jade');
 
 /**

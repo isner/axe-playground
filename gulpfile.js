@@ -4,7 +4,6 @@
  */
 
 var stylus = require('gulp-stylus');
-var jade = require('gulp-jade');
 var duo = require('gulp-duojs');
 var fs = require('fs-extra');
 var path = require('path');
