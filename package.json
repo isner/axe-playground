@@ -4,6 +4,8 @@
   "description": "Configure and run aXe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
+    "postinstall": "gulp",
+    "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matt Isner <isnerms@gmail.com>",
