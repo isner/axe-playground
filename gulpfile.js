@@ -20,7 +20,7 @@ var locals = {
 
 var PATH_TO_AXE = 'node_modules/axe-core';
 var AXE_FILE = 'axe.min.js';
-var BUILD_DIR = 'build';
+var BUILD_DIR = 'build/axe';
 
 /**
  * Define tasks.
