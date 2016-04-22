@@ -2,28 +2,19 @@
 
 A series of fixtures meant to violate specific [aXe](https://github.com/dequelabs/axe-core) rules and checks. Supports modification of aXe configuration, and test fixtures themselves, on the fly.
 
-## Directions
+Requires [Node.js](https://nodejs.org/en/).
 
-Clone the project using
-
-```bash
-$ git clone git@github.com:isner/axe-playground.git
-```
-
-then open `dist/index.html` in your browser.
-
-## Adding an Example
-
-Clone and install the project dependencies using
+## Getting Started
 
 ```bash
 $ git clone git@github.com:isner/axe-playground.git
 $ cd axe-playground
 $ npm i
+$ npm start
 ```
 
-Create or modify the preset example fixtures in `/examples`. The build using
+Open `localhost:3000` in your browser.
 
-```bash
-$ gulp
-```
+## Adding Fixtures
+
+There is currently no support for adding fixtures, but it's on the to-do list.
