@@ -1,4 +1,4 @@
-# axe-playground
+# aXe-playground
 
 A series of fixtures meant to violate specific [aXe](https://github.com/dequelabs/axe-core) rules and checks. Supports modification of aXe configuration, and test fixtures themselves, on the fly.
 
@@ -14,6 +14,10 @@ $ npm start
 ```
 
 Open `localhost:3000` in your browser.
+
+## Demo
+
+A live instance of aXe Playground can be viewed at http://mattisner.com/axe.
 
 ## Adding Fixtures
 
