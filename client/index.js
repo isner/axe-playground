@@ -200,7 +200,13 @@ configArea.value = JSON.stringify(defaultOpts, null, 2);
  * Apply default values to HTML and Render Fixture areas.
  */
 
-fixture.innerHTML = examples.rule.accesskeys;
+var selectedRuleEl = document.querySelector('#rule-presets option[default-selected]');
+if (selectedRuleEl) {
+  fixture.innerHTML = examples.rule[selectedRuleEl.value];
+}
+else {
+  fixture.innerHTML = examples.rule.accesskeys;
+}
 markupArea.innerHTML = safeTags(fixture.innerHTML);
 
 /**

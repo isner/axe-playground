@@ -26,6 +26,7 @@ app.use('/build', express.static(__dirname + '/build'));
  */
 
 app.use(require('./routes/home'));
+app.use(require('./routes/rule'));
 
 /**
  * Start server.

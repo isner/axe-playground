@@ -25,7 +25,10 @@ block content
             div
               select#rule-presets(aria-labelledby="name-legend")
                 each name in rules
-                  option(value="#{name}") #{name}
+                  if defaultRule && defaultRule == name
+                    option(value="#{name}" selected="true" default-selected) #{name}
+                  else
+                    option(value="#{name}") #{name}
           .presets.check.hidden
             div  
               select#check-presets(aria-labelledby="name-legend")
@@ -69,6 +72,6 @@ block content
     label(for="axe-results") Violations Array
     textarea#axe-results(rows="30" readonly="true")
 
-  script(src="build/axe/index.js")
+  script(src="/build/axe/index.js")
   script.
     analyze();
