@@ -10,7 +10,8 @@ Requires [Node.js](https://nodejs.org/en/).
 $ git clone git@github.com:isner/axe-playground.git
 $ cd axe-playground
 $ npm i
-$ npm start
+$ gulp
+$ node app
 ```
 
 Open `localhost:3000` in your browser.
