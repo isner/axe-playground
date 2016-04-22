@@ -2,7 +2,7 @@ extends layout
 
 block content
   .col-1-2
-    a.area-trigger(href="#" role="button" data-area="preset-area" data-text="Preset Fixtures")
+    button.area-trigger(data-area="preset-area" data-text="Preset Fixtures")
     
     #preset-area.hidden
       h2 Choose a Preset Fixture
@@ -55,7 +55,7 @@ block content
       block fixture
 
   .col-1-2
-    a.area-trigger(href="#" role="button" data-area="options-area" data-text="aXe Options") 
+    button.area-trigger(data-area="options-area" data-text="aXe Options") 
     
     #options-area.hidden
       h2 aXe Options
