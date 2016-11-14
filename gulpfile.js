@@ -4,10 +4,10 @@
  */
 
 var stylus = require('gulp-stylus');
-var duo = require('gulp-duojs');
 var fs = require('fs-extra');
 var path = require('path');
 var gulp = require('gulp');
+var Duo = require('duo');
 
 var locals = {
   rules: require('./lib/rules'),
@@ -48,9 +48,14 @@ gulp.task('build', ['clean'], function () {
   fs.copySync(axeSrc, axeDest);
 
   // Build client scripts
-  gulp.src('client/index.js')
-    .pipe(duo())
-    .pipe(gulp.dest(BUILD_DIR));
+  Duo(__dirname)
+    .entry('client/index.js')
+    .run(function (err, res) {
+      if (err) throw err;
+      fs.writeFile(path.join(BUILD_DIR, 'index.js'), res.code, function () {
+        if (err) throw err;
+      });
+    });
 
   // Compile stylus files
   gulp.src('styles/**/*.styl')
