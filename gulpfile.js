@@ -18,7 +18,7 @@ var locals = {
  * Define constants.
  */
 
-var PATH_TO_AXE = 'node_modules/axe-core';
+var PATH_TO_AXE = './node_modules/axe-core';
 var AXE_FILE = 'axe.min.js';
 var BUILD_DIR = 'build/axe';
 
