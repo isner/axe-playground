@@ -4,7 +4,7 @@
   "description": "Configure and run aXe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp",
+    "postinstall": "gulp && cp node_modules/axe-core/axe.min.js build/axe/axe.min.js",
     "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
