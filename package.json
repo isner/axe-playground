@@ -4,14 +4,12 @@
   "description": "Configure and run aXe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp && cp node_modules/axe-core/axe.min.js build/axe/axe.min.js",
-    "start": "node app",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "npm i axe-core && gulp",
+    "start": "node app"
   },
   "author": "Matt Isner <isnerms@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "axe-core": "^2.0.7",
     "duo": "^0.15.7",
     "express": "^4.13.4",
     "fs-extra": "^0.24.0",

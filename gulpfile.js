@@ -45,7 +45,7 @@ gulp.task('styles', () => {
 gulp.task('copy', () => {
   var axeSrc  = path.join(PATH_TO_AXE, AXE_FILE);
   var axeDest = path.join(BUILD_DIR, AXE_FILE);
-  // fs.copySync(axeSrc, axeDest);
+  fs.copySync(axeSrc, axeDest);
   gulp.src('images/*.*')
     .pipe(gulp.dest(path.join(BUILD_DIR, 'images')));
 });
