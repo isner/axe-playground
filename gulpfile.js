@@ -52,9 +52,7 @@ gulp.task('build', ['clean'], function () {
     .entry('client/index.js')
     .run(function (err, res) {
       if (err) throw err;
-      fs.writeFile(path.join(BUILD_DIR, 'index.js'), res.code, function () {
-        if (err) throw err;
-      });
+      fs.writeFileSync(path.join(BUILD_DIR, 'index.js'), res.code);
     });
 
   // Compile stylus files
