@@ -13,7 +13,7 @@ var PORT = 3000;
  * Configure view rendering.
  */
 
-app.set('view engine', 'jade');
+app.set('view engine', 'pug');
 
 /**
  * Specify static, public assets.
