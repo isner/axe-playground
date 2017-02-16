@@ -26,15 +26,15 @@ block content
               select#rule-presets(aria-labelledby="name-legend")
                 each name in rules
                   if defaultRule && defaultRule == name
-                    option(value="#{name}" selected="true" default-selected) #{name}
+                    option(value=name selected="true" default-selected) #{name}
                   else
-                    option(value="#{name}") #{name}
+                    option(value=name) #{name}
           .presets.check.hidden
             div  
               select#check-presets(aria-labelledby="name-legend")
                 each type in Object.keys(checks)
                   each name in checks[type]
-                    option(value="#{name}") #{name}
+                    option(value=name) #{name}
               
       p.clear
       button#apply-preset Apply Selected Preset
