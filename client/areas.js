@@ -1,23 +1,11 @@
 
-/**
- * Dependencies.
- */
-
-var classes = require('component/classes');
-var data = require('code42day/dataset');
-var query = require('component/query');
-
-/**
- * Constants.
- */
+var classes = require('component-classes');
+var query = require('component-query');
+var data = require('dataset');
 
 var HIDDEN_CLASS = 'hidden';
 var SHOW = 'Show ';
 var HIDE = 'Hide ';
-
-/**
- * Expose `areas`.
- */
 
 module.exports = initAreas;
 

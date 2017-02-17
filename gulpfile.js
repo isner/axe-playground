@@ -1,19 +1,23 @@
 'use strict';
 
-var stylus = require('gulp-stylus');
-var fs = require('fs-extra');
-var path = require('path');
-var gulp = require('gulp');
-var Duo = require('duo');
+const source = require('vinyl-source-stream');
+const browserify = require('browserify');
+const html = require('html-browserify');
+const babelify = require('babelify');
+const errorify = require('errorify');
+const stylus = require('gulp-stylus');
+const fs = require('fs-extra');
+const path = require('path');
+const gulp = require('gulp');
 
-var locals = {
+const locals = {
   rules: require('./lib/rules'),
   checks: require('./lib/checks')
 };
 
-var PATH_TO_AXE = './node_modules/axe-core';
-var AXE_FILE = 'axe.min.js';
-var BUILD_DIR = 'build/axe';
+const PATH_TO_AXE = './node_modules/axe-core';
+const AXE_FILE = 'axe.min.js';
+const BUILD_DIR = 'build/axe';
 
 gulp.task('default', ['build']);
 
@@ -24,14 +28,14 @@ gulp.task('clean', function () {
   fs.ensureDirSync(BUILD_DIR);
 });
 
-gulp.task('scripts', done => {
-  Duo(__dirname)
-    .entry('client/index.js')
-    .run(function (err, res) {
-      if (err) throw err;
-      fs.writeFileSync(path.join(BUILD_DIR, 'index.js'), res.code);
-      done();
-    });
+gulp.task('scripts', () => {
+  browserify('client/index.js')
+    .transform(babelify, { presets: ["es2015"] })
+    .transform(html)
+    .plugin(errorify)
+    .bundle()
+    .pipe(source('index.js'))
+    .pipe(gulp.dest(BUILD_DIR));
 });
 
 gulp.task('styles', () => {
@@ -43,8 +47,8 @@ gulp.task('styles', () => {
 });
 
 gulp.task('copy', () => {
-  var axeSrc  = path.join(PATH_TO_AXE, AXE_FILE);
-  var axeDest = path.join(BUILD_DIR, AXE_FILE);
+  const axeSrc  = path.join(PATH_TO_AXE, AXE_FILE);
+  const axeDest = path.join(BUILD_DIR, AXE_FILE);
   fs.copySync(axeSrc, axeDest);
   gulp.src('images/*.*')
     .pipe(gulp.dest(path.join(BUILD_DIR, 'images')));

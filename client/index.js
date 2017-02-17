@@ -1,22 +1,10 @@
 
-/**
- * Dependencies.
- */
-
-var classes = require('component/classes');
-var query = require('component/query');
-
-/**
- * Constants.
- */
+var classes = require('component-classes');
+var query = require('component-query');
 
 var HIDDEN_CLASS = 'hidden';
 var RULE = 'rule';
 var CHECK = 'check';
-
-/**
- * Element references.
- */
 
 var fixture         = query('#fixture');
 var typeRadios      = query.all('input[name="type"]');
@@ -30,12 +18,7 @@ var markupArea      = query('#markup');
 var renderBtn       = query('#render');
 var configArea      = query('#config-textarea');
 var analyzeBtn      = query('#analyze');
-var fixture         = query('#fixture');
 var resultsTextbox  = query('#axe-results');
-
-/**
- * Initialize state variables.
- */
 
 var selectedType = RULE;
 
@@ -210,12 +193,12 @@ else {
 markupArea.innerHTML = safeTags(fixture.innerHTML);
 
 /**
- * Run `#a11yCheck` on the text fixture.
+ * Run aXe on the text fixture.
  */
 
-window.analyze = function (target, opts) {
+window.analyze = function () {
   var optsVal = configArea.value;
-  opts = opts || JSON.parse(optsVal);
+  var opts = (optsVal.length && JSON.parse(optsVal)) || {};
 
   axe.a11yCheck('#fixture', opts, function (res) {
     var str = JSON.stringify(res.violations, null, 2);
