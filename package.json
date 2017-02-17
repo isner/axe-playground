@@ -1,6 +1,6 @@
 {
   "name": "axe-playground",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Configure and run aXe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
