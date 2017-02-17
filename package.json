@@ -4,7 +4,6 @@
   "description": "Configure and run aXe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm i axe-core && gulp",
     "start": "node app"
   },
   "author": "Matt Isner <isnerms@gmail.com>",
@@ -14,6 +13,7 @@
     "pug": "^2.0.0-beta11"
   },
   "devDependencies": {
+    "axe-core": "^2.1.7",
     "babel-preset-es2015": "^6.22.0",
     "babelify": "^7.3.0",
     "browserify": "^14.1.0",
