@@ -1,0 +1,8 @@
+module.exports = `<div>
+  <label>Name</label>
+  <input type="text" title="Name"/>
+</div>
+<div>
+  <label id="emailLabel">Email</label>
+  <input type="email" aria-describedby="emailLabel"/>
+</div>`;

@@ -1,0 +1,15 @@
+module.exports = `<div>
+  <label>
+    <span>N<u>a</u>me</span>
+    <input type="text" name="name" accesskey="a" />
+  </label>
+</div>
+<div>
+  <label>
+    <span><u>E</u>mail</span>
+    <input type="email" name="email" accesskey="e" />
+  </label>
+</div>
+<div>
+  <button accesskey="a">C<u>a</u>ncel</button>
+</div>`;

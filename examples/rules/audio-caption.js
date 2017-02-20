@@ -1,0 +1,4 @@
+module.exports = `<audio controls="true">
+  <!-- 'src' attribute value empty for example purposes -->
+  <source src="" type="audio/mp4">
+</audio>`;

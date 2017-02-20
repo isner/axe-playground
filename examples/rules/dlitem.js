@@ -1,0 +1,7 @@
+module.exports = `<h4>Fun Words</h4>
+<div>
+  <dt>Gumption</dt>
+  <dd>Shrewd or spirited initiative and resourcefulness.</dd>
+  <dt>Gravitas</dt>
+  <dd>Dignity, seriousness, or solemnity of manner.</dd>
+</div>`;
