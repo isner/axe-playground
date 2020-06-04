@@ -155,7 +155,7 @@ renderBtn.addEventListener('click', function () {
 });
 
 /**
- * Clicks on the 'Analyze' button run aXe on the existing fixture.
+ * Clicks on the 'Analyze' button run axe on the existing fixture.
  */
 
 analyzeBtn.addEventListener('click', function () {
@@ -163,7 +163,7 @@ analyzeBtn.addEventListener('click', function () {
 });
 
 /**
- * Set and apply default aXe options.
+ * Set and apply default axe options.
  */
 
 var defaultOpts = {
@@ -193,7 +193,7 @@ else {
 markupArea.innerHTML = safeTags(fixture.innerHTML);
 
 /**
- * Run aXe on the text fixture.
+ * Run axe on the text fixture.
  */
 
 window.analyze = function () {
