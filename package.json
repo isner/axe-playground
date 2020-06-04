@@ -4,6 +4,8 @@
   "description": "Configure and run axe rules/checks on fixtures",
   "main": "index.js",
   "scripts": {
+    "build": "gulp",
+    "postinstall": "npm run build",
     "start": "node app"
   },
   "author": "Matt Isner <isnerms@gmail.com>",
