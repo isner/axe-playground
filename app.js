@@ -3,7 +3,7 @@ var express = require('express');
 
 var app = module.exports = express();
 
-var PORT = 3000;
+var PORT = 5000;
 
 app.set('view engine', 'pug');
 

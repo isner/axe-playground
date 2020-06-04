@@ -14,8 +14,8 @@ $ gulp
 $ node app
 ```
 
-Open `localhost:3000` in your browser.
 
 ## Live Demo
 
 A live instance of aXe Playground can be viewed at http://mattisner.com/axe.
+Open `localhost:5000` in your browser.
