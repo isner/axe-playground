@@ -200,11 +200,14 @@ window.analyze = function () {
   var optsVal = configArea.value;
   var opts = (optsVal.length && JSON.parse(optsVal)) || {};
 
-  axe.a11yCheck('#fixture', opts, function (res) {
+  axe.run('#fixture', opts, (err, res) => {
+    if (err) {
+      throw err;
+    }
     var str = JSON.stringify(res.violations, null, 2);
     resultsTextbox.innerHTML = safeTags(str);
     window.scrollTo(0, 0);
-  });
+  })
 };
 
 /**
